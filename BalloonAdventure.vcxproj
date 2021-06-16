@@ -160,6 +160,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\game_objects\draw_object.cpp" />
+    <ClCompile Include="src\game_objects\game_object.cpp" />
+    <ClCompile Include="src\game_objects\game_object.h" />
+    <ClCompile Include="src\game_objects\physics_object.cpp" />
     <ClCompile Include="src\game_objects\step_object.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -168,7 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_objects\draw_object.h" />
+    <ClInclude Include="src\game_objects\physics_object.h" />
     <ClInclude Include="src\game_objects\step_object.h" />
+    <ClInclude Include="src\game_objects\vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

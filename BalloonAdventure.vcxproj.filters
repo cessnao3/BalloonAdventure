@@ -30,6 +30,15 @@
     <ClCompile Include="src\game_objects\draw_object.cpp">
       <Filter>Source Files\game_objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\game_objects\game_object.h">
+      <Filter>Header Files\game_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_objects\game_object.cpp">
+      <Filter>Source Files\game_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_objects\physics_object.cpp">
+      <Filter>Source Files\game_objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -39,6 +48,12 @@
       <Filter>Header Files\game_objects</Filter>
     </ClInclude>
     <ClInclude Include="src\game_objects\draw_object.h">
+      <Filter>Header Files\game_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_objects\physics_object.h">
+      <Filter>Header Files\game_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_objects\vector2.h">
       <Filter>Header Files\game_objects</Filter>
     </ClInclude>
   </ItemGroup>

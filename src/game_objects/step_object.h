@@ -1,11 +1,13 @@
-#ifndef __IO_GAME_OBJECT__
-#define __IO_GAME_OBJECT__
-
-#include <vector>
+#pragma once
 
 struct StepState
 {
     double time_step;
+
+    virtual ~StepState()
+    {
+        // Do Nothing;
+    }
 };
 
 class StepObject
@@ -16,16 +18,4 @@ public:
     virtual void step(const StepState* state);
 
     virtual void post_step(const StepState* state);
-
-protected:
-    bool add_step_object(StepObject* obj);
-
-    bool remove_step_object(const StepObject* obj);
-
-    bool contains_step_object(const StepObject* obj) const;
-
-private:
-    std::vector<StepObject*> other_step_objects;
 };
-
-#endif

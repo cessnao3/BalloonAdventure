@@ -2,9 +2,7 @@
 
 #include <allegro5/allegro.h>
 
-#include <game_objects/draw_object.h>
-#include <game_objects/step_object.h>
-
+#include <game_objects/game_object.h>
 
 int main()
 {
