@@ -1,6 +1,8 @@
 CXX=g++
-CXXFLAGS=-Wall -Werror -pedantic -Isrc/
+CXXFLAGS=$(file < BalloonAdventure.cxxflags)
 CXXLIBS = $(shell pkg-config --libs allegro-5 allegro_primitives-5 allegro_ttf-5 allegro_font-5)
+
+ALLFILES=$(file < BalloonAdventure.files)
 
 SRCDIRS=game_objects
 
@@ -11,6 +13,9 @@ MAIN=src/main.cpp
 EXEC=balloon.out
 
 OBJS=$(patsubst %.cpp,%.o,$(SRC))
+
+list:
+	echo "$(ALLFILES)"
 
 all: $(EXEC)
 
