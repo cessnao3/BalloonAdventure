@@ -4,10 +4,7 @@ struct StepState
 {
     double time_step;
 
-    virtual ~StepState()
-    {
-        // Do Nothing;
-    }
+    virtual ~StepState();
 };
 
 class StepObject

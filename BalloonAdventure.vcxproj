@@ -164,6 +164,7 @@
     <ClCompile Include="src\game_objects\game_object.h" />
     <ClCompile Include="src\game_objects\physics_object.cpp" />
     <ClCompile Include="src\game_objects\step_object.cpp" />
+    <ClCompile Include="src\game_objects\vector2.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>

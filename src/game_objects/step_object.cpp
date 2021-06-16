@@ -1,5 +1,10 @@
 #include "step_object.h"
 
+StepState::~StepState()
+{
+    // Do Nothing;
+}
+
 void StepObject::pre_step(const StepState* state)
 {
     // Do Nothing

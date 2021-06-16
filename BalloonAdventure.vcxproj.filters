@@ -39,6 +39,9 @@
     <ClCompile Include="src\game_objects\physics_object.cpp">
       <Filter>Source Files\game_objects</Filter>
     </ClCompile>
+    <ClCompile Include="src\game_objects\vector2.cpp">
+      <Filter>Source Files\game_objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
