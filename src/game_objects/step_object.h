@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GIO_STEP_OBJECT_H
+#define GIO_STEP_OBJECT_H
 
 struct StepState
 {
@@ -16,3 +17,5 @@ public:
 
     virtual void post_step(const StepState* state);
 };
+
+#endif // GIO_STEP_OBJECT_H

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GIO_PHYSICS_OBJECT_H
+#define GIO_PHYSICS_OBJECT_H
 
 #include "game_object.h"
 #include "vector2.h"
@@ -75,3 +76,5 @@ protected:
     Vector2 forces;
     double moments;
 };
+
+#endif // GIO_PHYSICS_OBJECT_H
