@@ -65,6 +65,7 @@ int main()
             {
                 // Run frame step
             }
+            break;
         case ALLEGRO_EVENT_KEY_DOWN:
             break;
         case ALLEGRO_EVENT_KEY_UP:

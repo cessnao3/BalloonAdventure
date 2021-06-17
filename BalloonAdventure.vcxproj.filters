@@ -39,7 +39,7 @@
     <ClCompile Include="src\game_objects\physics_object.cpp">
       <Filter>Source Files\game_objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\game_objects\vector2.cpp">
+    <ClCompile Include="src\game_objects\vector2.ixx">
       <Filter>Source Files\game_objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,8 +56,11 @@
     <ClInclude Include="src\game_objects\physics_object.h">
       <Filter>Header Files\game_objects</Filter>
     </ClInclude>
-    <ClInclude Include="src\game_objects\vector2.h">
+    <ClInclude Include="src\game_objects\input_manager.h">
       <Filter>Header Files\game_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\balloon_game_state.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

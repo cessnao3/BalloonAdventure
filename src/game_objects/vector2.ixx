@@ -1,6 +1,6 @@
-export module vector2mod;
+export module vector2;
 
-//#include <cmath>
+#include <cmath>
 
 #include <exception>
 #include <stdexcept>
@@ -8,13 +8,26 @@ export module vector2mod;
 export class Vector2
 {
 public:
-    Vector2();
+    Vector2() :
+        x(0.0),
+        y(0.0)
+    {
+        // Empty Constructor
+    }
 
     explicit Vector2(
         const double x,
-        const double y);
+        const double y) :
+        x(x),
+        y(y)
+    {
+        // Empty Constructor
+    }
 
-    double dot(const Vector2& other) const;
+    double dot(const Vector2& other) const
+    {
+        return x * other.x + y * other.y;
+    }
 
     double cross(const Vector2& other) const;
 
@@ -48,28 +61,6 @@ public:
     double x;
     double y;
 };
-
-Vector2::Vector2() :
-    x(0.0),
-    y(0.0)
-{
-    // Empty Constructor
-}
-
-Vector2::Vector2(
-    const double x,
-    const double y)
-    :
-    x(x),
-    y(y)
-{
-    // Empty Constructor
-}
-
-double Vector2::dot(const Vector2& other) const
-{
-    return x * other.x + y * other.y;
-}
 
 double Vector2::cross(const Vector2& other) const
 {
@@ -164,48 +155,48 @@ Vector2& Vector2::Vector2::operator/=(const double val)
     return *this;
 }
 
-Vector2 operator+(const double val, const Vector2& vec)
+export Vector2 operator+(const double val, const Vector2& vec)
 {
     return Vector2(
         val + vec.x,
         val + vec.y);
 }
 
-Vector2 operator+(const Vector2& vec, const double val)
+export Vector2 operator+(const Vector2& vec, const double val)
 {
     return Vector2(
         vec.x + val,
         vec.y + val);
 }
 
-Vector2 operator-(const double val, const Vector2& vec)
+export Vector2 operator-(const double val, const Vector2& vec)
 {
     return val + -vec;
 }
 
-Vector2 operator-(const Vector2& vec, const double val)
+export Vector2 operator-(const Vector2& vec, const double val)
 {
     return vec + -val;
 }
 
-Vector2 operator*(const Vector2& vec, const double val)
+export Vector2 operator*(const Vector2& vec, const double val)
 {
     return Vector2(
         vec.x * val,
         vec.y * val);
 }
 
-Vector2 operator*(const double val, const Vector2& vec)
+export Vector2 operator*(const double val, const Vector2& vec)
 {
     return vec * val;
 }
 
-Vector2 operator/(const Vector2& vec, const double val)
+export Vector2 operator/(const Vector2& vec, const double val)
 {
     return vec * (1.0 / val);
 }
 
-Vector2 operator/(const double val, const Vector2& vec)
+export Vector2 operator/(const double val, const Vector2& vec)
 {
     return (1.0 / val) * vec;
 }
