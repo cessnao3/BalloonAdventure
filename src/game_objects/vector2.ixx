@@ -1,9 +1,11 @@
-export module vector2;
+module;
 
 #include <cmath>
 
 #include <exception>
 #include <stdexcept>
+
+export module vector2;
 
 export class Vector2
 {
@@ -29,131 +31,103 @@ public:
         return x * other.x + y * other.y;
     }
 
-    double cross(const Vector2& other) const;
+    double cross(const Vector2& other) const
+    {
+        return x * other.y - y * other.x;
+    }
 
-    double magnitude() const;
+    double magnitude() const
+    {
+        return std::sqrt(magnitude_squared());
+    }
 
-    double magnitude_squared() const;
+    double magnitude_squared() const
+    {
+        return x * x + y * y;
+    }
 
-    Vector2 rotate_rad(const double angle) const;
+    Vector2 rotate_rad(const double angle) const
+    {
+        const double sa = std::sin(angle);
+        const double ca = std::cos(angle);
+        return Vector2(
+            x * ca + y * sa,
+            -y * sa + x * ca);
+    }
 
-    Vector2 normalize() const;
+    Vector2 normalize() const
+    {
+        const double mag = magnitude();
+        return Vector2(
+            x / mag,
+            y / mag);
+    }
 
-    Vector2 operator+(const Vector2& other) const;
+    Vector2 operator+(const Vector2& other) const
+    {
+        return Vector2(
+            x + other.x,
+            y + other.y);
+    }
 
-    Vector2& operator+=(const Vector2& other);
+    Vector2& operator+=(const Vector2& other)
+    {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
 
-    Vector2& operator+=(const double val);
+    Vector2& operator+=(const double val)
+    {
+        x += val;
+        y += val;
+        return *this;
+    }
 
-    Vector2 operator-() const;
+    Vector2 operator-() const
+    {
+        return Vector2(
+            -x,
+            -y);
+    }
 
-    Vector2 operator-(const Vector2& other) const;
+    Vector2 operator-(const Vector2& other) const
+    {
+        return Vector2(
+            x - other.x,
+            y - other.y);
+    }
 
-    Vector2& operator-=(const Vector2& other);
+    Vector2& operator-=(const Vector2& other)
+    {
+        *this += -other;
+        return *this;
+    }
 
-    Vector2& operator-=(const double val);
+    Vector2& operator-=(const double val)
+    {
+        *this += -val;
+        return *this;
+    }
 
-    Vector2& operator*=(const double val);
+    Vector2& operator*=(const double val)
+    {
+        x *= val;
+        y *= val;
+        return *this;
+    }
 
-    Vector2& operator/=(const double val);
+    Vector2& operator/=(const double val)
+    {
+        x /= val;
+        y /= val;
+        return *this;
+    }
 
 public:
     double x;
     double y;
 };
-
-double Vector2::cross(const Vector2& other) const
-{
-    return x * other.y - y * other.x;
-}
-
-double Vector2::magnitude() const
-{
-    return std::sqrt(magnitude_squared());
-}
-
-double Vector2::magnitude_squared() const
-{
-    return x * x + y * y;
-}
-
-Vector2 Vector2::rotate_rad(const double angle) const
-{
-    const double sa = std::sin(angle);
-    const double ca = std::cos(angle);
-    return Vector2(
-        x * ca + y * sa,
-        -y * sa + x * ca);
-}
-
-Vector2 Vector2::normalize() const
-{
-    const double mag = magnitude();
-    return Vector2(
-        x / mag,
-        y / mag);
-}
-
-Vector2 Vector2::operator+(const Vector2& other) const
-{
-    return Vector2(
-        x + other.x,
-        y + other.y);
-}
-
-Vector2& Vector2::operator+=(const Vector2& other)
-{
-    x += other.x;
-    y += other.y;
-    return *this;
-}
-
-Vector2& Vector2::operator+=(const double val)
-{
-    x += val;
-    y += val;
-    return *this;
-}
-
-Vector2 Vector2::operator-() const
-{
-    return Vector2(
-        -x,
-        -y);
-}
-
-Vector2 Vector2::operator-(const Vector2& other) const
-{
-    return Vector2(
-        x - other.x,
-        y - other.y);
-}
-
-Vector2& Vector2::operator-=(const Vector2& other)
-{
-    *this += -other;
-    return *this;
-}
-
-Vector2& Vector2::operator-=(const double val)
-{
-    *this += -val;
-    return *this;
-}
-
-Vector2& Vector2::operator*=(const double val)
-{
-    x *= val;
-    y *= val;
-    return *this;
-}
-
-Vector2& Vector2::Vector2::operator/=(const double val)
-{
-    x /= val;
-    y /= val;
-    return *this;
-}
 
 export Vector2 operator+(const double val, const Vector2& vec)
 {

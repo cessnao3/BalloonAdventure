@@ -2,7 +2,10 @@
 #define GIO_PHYSICS_OBJECT_H
 
 #include "game_object.h"
-//import Vector;import vector2;
+
+//import Vector;
+import vector2;
+
 
 struct PhysicsState : public StepState
 {
