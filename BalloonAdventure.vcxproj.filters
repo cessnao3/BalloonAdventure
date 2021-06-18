@@ -39,7 +39,10 @@
     <ClCompile Include="src\game_objects\physics_object.cpp">
       <Filter>Source Files\game_objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\game_objects\vector2.ixx">
+    <ClCompile Include="src\game_objects\vector2.h">
+      <Filter>Header Files\game_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_objects\vector2.cpp">
       <Filter>Source Files\game_objects</Filter>
     </ClCompile>
   </ItemGroup>

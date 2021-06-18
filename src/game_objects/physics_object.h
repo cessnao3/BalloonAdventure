@@ -3,8 +3,7 @@
 
 #include "game_object.h"
 
-//import Vector;
-import vector2;
+#include "vector2.h"
 
 
 struct PhysicsState : public StepState
