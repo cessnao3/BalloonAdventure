@@ -2,7 +2,8 @@
 
 #include <allegro5/allegro.h>
 
-#include <game_objects/game_object.h>
+#include <iolwge/game_object.h>
+#include <game_object.h>
 
 int main()
 {
@@ -11,6 +12,9 @@ int main()
     {
         return 1;
     }
+
+    GameObject go;
+    go.step(nullptr);
 
     // Create the main display
     ALLEGRO_DISPLAY* display = al_create_display(800, 600);
