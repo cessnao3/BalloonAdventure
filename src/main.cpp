@@ -2,8 +2,7 @@
 
 #include <allegro5/allegro.h>
 
-#include <iolwge/game_object.h>
-#include <game_object.h>
+#include <gamelib/game_object.h>
 
 int main()
 {

@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -119,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -138,7 +138,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -157,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -171,26 +171,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\game_objects\draw_object.cpp" />
-    <ClCompile Include="src\game_objects\game_object.cpp" />
-    <ClCompile Include="src\game_objects\game_object.h" />
-    <ClCompile Include="src\game_objects\physics_object.cpp" />
-    <ClCompile Include="src\game_objects\step_object.cpp" />
-    <ClCompile Include="src\game_objects\vector2.cpp" />
-    <ClCompile Include="src\game_objects\vector2.h">
-      <DeploymentContent>false</DeploymentContent>
-    </ClCompile>
+    <ClCompile Include="gamelib\draw_object.cpp" />
+    <ClCompile Include="gamelib\game_object.cpp" />
+    <ClCompile Include="gamelib\physics_object.cpp" />
+    <ClCompile Include="gamelib\step_object.cpp" />
+    <ClCompile Include="gamelib\vector2.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="gamelib\draw_object.h" />
+    <ClInclude Include="gamelib\game_object.h" />
+    <ClInclude Include="gamelib\input_manager.h" />
+    <ClInclude Include="gamelib\physics_object.h" />
+    <ClInclude Include="gamelib\step_object.h" />
+    <ClInclude Include="gamelib\vector2.h" />
+    <ClInclude Include="src\balloon_game_state.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\balloon_game_state.h" />
-    <ClInclude Include="src\game_objects\draw_object.h" />
-    <ClInclude Include="src\game_objects\input_manager.h" />
-    <ClInclude Include="src\game_objects\physics_object.h" />
-    <ClInclude Include="src\game_objects\step_object.h" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
