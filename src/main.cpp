@@ -4,10 +4,17 @@
 
 #include <game_state.h>
 
+#include <iostream>
+
 int main()
 {
     // Initialize the Allegro library
     if (!al_init())
+    {
+        return 1;
+    }
+
+    if (!al_install_keyboard())
     {
         return 1;
     }
@@ -33,6 +40,9 @@ int main()
     al_register_event_source(
         event_queue,
         al_get_timer_event_source(physics_timer));
+    al_register_event_source(
+        event_queue,
+        al_get_keyboard_event_source());
 
     // Start Timers
     al_start_timer(frame_timer);
@@ -64,11 +74,19 @@ int main()
             else if (game_event.timer.source == frame_timer)
             {
                 // Run frame step
+
+                // Check for a quit event
+                if (state.get_input_manager()->get_key_status(ALLEGRO_KEY_ESCAPE))
+                {
+                    state.set_quit();
+                }
             }
             break;
         case ALLEGRO_EVENT_KEY_DOWN:
+            state.get_input_manager()->set_key_down(game_event.keyboard.keycode);
             break;
         case ALLEGRO_EVENT_KEY_UP:
+            state.get_input_manager()->set_key_up(game_event.keyboard.keycode);
             break;
         default:
             break;
