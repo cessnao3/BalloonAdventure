@@ -1,12 +1,20 @@
 #ifndef GIO_STEP_OBJECT_H
 #define GIO_STEP_OBJECT_H
 
+#include "input_manager.h"
+
 /**
  * @brief Provides the basic state information for a given step
  */
 struct StepState
 {
+public:
     double time_step;
+
+    InputManager* input_manager;
+
+public:
+    StepState();
 
     virtual ~StepState();
 };

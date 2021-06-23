@@ -2,71 +2,69 @@
 #define GIO_INPUT_MANAGER_H
 
 #include <unordered_map>
-#include <allegro5/keycodes.h>
 
-namespace gio
-{
-
+/**
+ * @brief Provides a basic input manager to maintain key state information
+ */
 class InputManager
 {
 public:
-    InputManager()
-    {
-        // Empty Constructor
-    }
+    /**
+     * @brief constructs an input manager
+     */
+    InputManager();
 
-    void set_key_down(const int keycode)
-    {
-        status_map.insert_or_assign(keycode, true);
-    }
+    /**
+     * @brief marks the given key as pressed
+     * @param keycode the keycode to set
+     */
+    void set_key_down(const int keycode);
 
-    void set_key_up(const int keycode)
-    {
-        status_map.insert_or_assign(keycode, false);
-    }
+    /**
+     * @brief marks the given key as released
+     * @param keycode the keycode to set
+     */
+    void set_key_up(const int keycode);
 
-    bool get_key_status(const int keycode) const
-    {
-        auto value = status_map.find(keycode);
-        if (value == status_map.end())
-        {
-            return false;
-        }
-        else
-        {
-            return value->second;
-        }
-    }
+    /**
+     * @brief determines the state of a given key
+     * @param keycode the keycode to check
+     * @return true if the key state is pressed
+     */
+    bool get_key_status(const int keycode) const;
 
-    bool get_dir_up() const
-    {
-        return get_key_status(ALLEGRO_KEY_UP) || get_key_status(ALLEGRO_KEY_W);
-    }
+    /**
+     * @brief determines if the up direction is pressed
+     * @return true if up is pressed
+     */
+    bool get_dir_up() const;
 
-    bool get_dir_down() const
-    {
-        return get_key_status(ALLEGRO_KEY_DOWN) || get_key_status(ALLEGRO_KEY_S);
-    }
+    /**
+     * @brief determines if the down direction is pressed
+     * @return true if down is pressed
+     */
+    bool get_dir_down() const;
 
-    bool get_dir_left() const
-    {
-        return get_key_status(ALLEGRO_KEY_LEFT) || get_key_status(ALLEGRO_KEY_A);
-    }
+    /**
+     * @brief determines if the left direction is pressed
+     * @return true if left is pressed
+     */
+    bool get_dir_left() const;
 
-    bool get_dir_right() const
-    {
-        return get_key_status(ALLEGRO_KEY_RIGHT) || get_key_status(ALLEGRO_KEY_D);
-    }
+    /**
+     * @brief determines if the right direction is pressed
+     * @return true if right is pressed
+     */
+    bool get_dir_right() const;
 
-    bool get_enter_pressed() const
-    {
-        return get_key_status(ALLEGRO_KEY_ENTER);
-    }
+    /**
+     * @brief determines if the enter action is pressed
+     * @return true if the enter action is pressed
+     */
+    bool get_enter_pressed() const;
 
 protected:
     std::unordered_map<int, bool> status_map;
 };
-
-}
 
 #endif // INPUT_MANAGER_H

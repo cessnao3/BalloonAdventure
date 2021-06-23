@@ -173,7 +173,7 @@
   <ItemGroup>
     <ClCompile Include="lib\gamelib\aero_object.cpp" />
     <ClCompile Include="lib\gamelib\draw_object.cpp" />
-    <ClCompile Include="lib\gamelib\game_object.cpp" />
+    <ClCompile Include="lib\gamelib\input_manager.cpp" />
     <ClCompile Include="lib\gamelib\physics_object.cpp" />
     <ClCompile Include="lib\gamelib\step_object.cpp" />
     <ClCompile Include="lib\gamelib\vector2.cpp" />

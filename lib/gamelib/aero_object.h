@@ -3,8 +3,6 @@
 
 #include "physics_object.h"
 
-#include <cmath>
-
 /**
  * @brief Provides basic aerodynamics forces for a physics object
  */

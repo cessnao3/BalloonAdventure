@@ -30,9 +30,6 @@
     <ClCompile Include="lib\gamelib\draw_object.cpp">
       <Filter>Source Files\gamelib</Filter>
     </ClCompile>
-    <ClCompile Include="lib\gamelib\game_object.cpp">
-      <Filter>Source Files\gamelib</Filter>
-    </ClCompile>
     <ClCompile Include="lib\gamelib\physics_object.cpp">
       <Filter>Source Files\gamelib</Filter>
     </ClCompile>
@@ -53,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\gamelib\input_manager.cpp">
+      <Filter>Source Files\gamelib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

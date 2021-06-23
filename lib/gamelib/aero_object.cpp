@@ -1,5 +1,7 @@
 #include "aero_object.h"
 
+#include <cmath>
+
 AeroObject::AeroObject(const double cd) :
     cd(cd)
 {
