@@ -19,11 +19,14 @@
     <Filter Include="Source Files\gamelib">
       <UniqueIdentifier>{4f2d4cb9-46f4-4816-94cc-05d0ab577dcf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\src">
+      <UniqueIdentifier>{52bd380c-0036-4c17-9ead-fc960e72f8e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{341f3537-ff47-451f-986e-1cabe4ca7485}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\gamelib\draw_object.cpp">
       <Filter>Source Files\gamelib</Filter>
     </ClCompile>
@@ -39,17 +42,20 @@
     <ClCompile Include="lib\gamelib\vector2.cpp">
       <Filter>Source Files\gamelib</Filter>
     </ClCompile>
-    <ClCompile Include="src\balloon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\gamelib\aero_object.cpp">
       <Filter>Source Files\gamelib</Filter>
     </ClCompile>
+    <ClCompile Include="src\balloon.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_state.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\balloon_game_state.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="lib\gamelib\draw_object.h">
       <Filter>Header Files\gamelib</Filter>
     </ClInclude>
@@ -68,11 +74,14 @@
     <ClInclude Include="lib\gamelib\vector2.h">
       <Filter>Header Files\gamelib</Filter>
     </ClInclude>
-    <ClInclude Include="src\balloon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="lib\gamelib\aero_object.h">
       <Filter>Header Files\gamelib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\balloon.h">
+      <Filter>Header Files\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_state.h">
+      <Filter>Header Files\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

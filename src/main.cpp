@@ -2,7 +2,7 @@
 
 #include <allegro5/allegro.h>
 
-#include <gamelib/game_object.h>
+#include <game_state.h>
 
 int main()
 {
@@ -11,9 +11,6 @@ int main()
     {
         return 1;
     }
-
-    GameObject go;
-    go.step(nullptr);
 
     // Create the main display
     ALLEGRO_DISPLAY* display = al_create_display(800, 600);
@@ -42,13 +39,13 @@ int main()
     al_start_timer(physics_timer);
 
     // Determine if the game should be running
-    bool running = true;
+    GameState state;
 
     // Parameter to check for game events
     ALLEGRO_EVENT game_event;
 
     // Run the main game loop
-    while (running)
+    while (state.get_running())
     {
         // Wait for the next event
         al_wait_for_event(event_queue, &game_event);
@@ -57,7 +54,7 @@ int main()
         switch (game_event.type)
         {
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
-            running = false;
+            state.set_quit();
             break;
         case ALLEGRO_EVENT_TIMER:
             if (game_event.timer.source == physics_timer)

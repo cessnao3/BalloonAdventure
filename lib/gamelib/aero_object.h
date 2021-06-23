@@ -5,24 +5,26 @@
 
 #include <cmath>
 
+/**
+ * @brief Provides basic aerodynamics forces for a physics object
+ */
 class AeroObject : public PhysicsObject
 {
 public:
-    virtual void pre_step(const StepState* state) override
-    {
-        // Get the aerodynamic velocity squared
-        const double vm2 = velocity.magnitude_squared();
+    /**
+     * @brief constructs the aerodynamics object
+     * @param cd the drag coefficient to use
+    */
+    AeroObject(const double cd);
 
-        // Apply drag in the opposite direction if the magnitude is great enough
-        if (std::abs(vm2) > 1e-6)
-        {
-            const Vector2 drag = -0.5 * cd * vm2 * velocity.normalize();
-            add_force_absolute(drag);
-        }
-    }
+    /**
+     * @brief state to run before the physics step to setup the aerodynamics forces
+     * @param state the step state to use for computation
+    */
+    virtual void pre_step(const StepState* state) override;
 
 protected:
-    double cd = 0.0;
+    double cd;
 };
 
 #endif

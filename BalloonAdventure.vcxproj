@@ -178,6 +178,7 @@
     <ClCompile Include="lib\gamelib\step_object.cpp" />
     <ClCompile Include="lib\gamelib\vector2.cpp" />
     <ClCompile Include="src\balloon.cpp" />
+    <ClCompile Include="src\game_state.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +190,7 @@
     <ClInclude Include="lib\gamelib\step_object.h" />
     <ClInclude Include="lib\gamelib\vector2.h" />
     <ClInclude Include="src\balloon.h" />
-    <ClInclude Include="src\balloon_game_state.h" />
+    <ClInclude Include="src\game_state.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

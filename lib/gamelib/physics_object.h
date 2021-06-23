@@ -6,78 +6,66 @@
 #include "vector2.h"
 
 
+/**
+ * @brief provides the core physics state information to pass to an object
+*/
 struct PhysicsState : public StepState
 {
     Vector2 gravity;
 };
 
+/**
+ * @brief provides a basic physics object to use within a game
+*/
 class PhysicsObject : public GameObject
 {
 public:
-    PhysicsObject() :
-        position(),
-        velocity(),
-        rotation(0.0),
-        rotational_vel(0.0),
-        mass(1.0),
-        inertia(1.0),
-        forces(),
-        moments(0.0)
-    {
-        // Do Nothing
-    }
+    /**
+     * @brief constructs the basic physics object
+    */
+    PhysicsObject();
 
-    void add_force_relative(const Vector2& force)
-    {
-        add_force_absolute(
-            force,
-            Vector2());
-    }
+    /**
+     * @brief Applies a relative force to the object
+     * @param force the force to apply
+    */
+    void add_force_relative(const Vector2& force);
 
-    void add_force_relative(const Vector2& force, const Vector2& offset)
-    {
-        add_force_absolute(
-            force.rotate_rad(rotation),
-            offset);
-    }
+    /**
+     * @brief Applies a relative force to the object
+     * @param force the force to apply
+     * @param offset the offset from the center of mass to apply the force at, relative to the body
+    */
+    void add_force_relative(
+        const Vector2& force,
+        const Vector2& offset);
 
-    void add_force_absolute(const Vector2& force)
-    {
-        add_force_absolute(
-            force,
-            Vector2());
-    }
+    /**
+     * @brief Applies a force to the object in the global frame
+     * @param force the force to apply
+    */
+    void add_force_absolute(const Vector2& force);
 
-    void add_force_absolute(const Vector2& force, const Vector2& offset)
-    {
-        forces += force;
-        moments += offset.cross(force);
-    }
+    /**
+     * @brief Applies a relative force to the object
+     * @param force the force to apply
+     * @param offset the offset from the center of mass to apply the force at, from the global frame
+    */
+    void add_force_absolute(
+        const Vector2& force,
+        const Vector2& offset);
 
-    virtual void step(const StepState* state) override
-    {
-        // Extract the physics state
-        const PhysicsState* physics = dynamic_cast<const PhysicsState*>(state);
-        if (physics == nullptr)
-        {
-            return;
-        }
+    /**
+     * @brief Steps the core physics state
+     * @param state the physics state to use to step
+    */
+    virtual void step(const StepState* state) override;
 
-        // Extract the time step
-        const double dt = physics->time_step;
-
-        // Integrate translational motion
-        velocity += forces / mass * dt + physics->gravity * dt;
-        position += velocity * dt;
-
-        // Integrate rotational motion
-        rotational_vel += moments / inertia * dt;
-        rotation = rotational_vel * dt;
-
-        // Clear the forces and moments
-        forces = Vector2(0.0, 0.0);
-        moments = 0.0;
-    }
+    /**
+     * @brief Steps the physics state
+     * @param state the physics state to use
+    */
+    virtual void step_physics(const PhysicsState* state);
 
 protected:
     Vector2 position;
