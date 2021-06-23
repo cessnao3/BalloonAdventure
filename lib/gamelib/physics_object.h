@@ -27,11 +27,25 @@ public:
         // Do Nothing
     }
 
+    void add_force_relative(const Vector2& force)
+    {
+        add_force_absolute(
+            force,
+            Vector2());
+    }
+
     void add_force_relative(const Vector2& force, const Vector2& offset)
     {
         add_force_absolute(
             force.rotate_rad(rotation),
             offset);
+    }
+
+    void add_force_absolute(const Vector2& force)
+    {
+        add_force_absolute(
+            force,
+            Vector2());
     }
 
     void add_force_absolute(const Vector2& force, const Vector2& offset)

@@ -1,9 +1,11 @@
 #ifndef GIO_DRAW_OBJECT_H
 #define GIO_DRAW_OBJECT_H
 
+#include "vector2.h"
+
 struct DrawState
 {
-    // Nothing... For Now!
+    Vector2 draw_offset;
 };
 
 class DrawObject

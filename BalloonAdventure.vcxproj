@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -119,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -138,7 +138,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -157,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
@@ -171,20 +171,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="gamelib\draw_object.cpp" />
-    <ClCompile Include="gamelib\game_object.cpp" />
-    <ClCompile Include="gamelib\physics_object.cpp" />
-    <ClCompile Include="gamelib\step_object.cpp" />
-    <ClCompile Include="gamelib\vector2.cpp" />
+    <ClCompile Include="lib\gamelib\aero_object.cpp" />
+    <ClCompile Include="lib\gamelib\draw_object.cpp" />
+    <ClCompile Include="lib\gamelib\game_object.cpp" />
+    <ClCompile Include="lib\gamelib\physics_object.cpp" />
+    <ClCompile Include="lib\gamelib\step_object.cpp" />
+    <ClCompile Include="lib\gamelib\vector2.cpp" />
+    <ClCompile Include="src\balloon.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gamelib\draw_object.h" />
-    <ClInclude Include="gamelib\game_object.h" />
-    <ClInclude Include="gamelib\input_manager.h" />
-    <ClInclude Include="gamelib\physics_object.h" />
-    <ClInclude Include="gamelib\step_object.h" />
-    <ClInclude Include="gamelib\vector2.h" />
+    <ClInclude Include="lib\gamelib\aero_object.h" />
+    <ClInclude Include="lib\gamelib\draw_object.h" />
+    <ClInclude Include="lib\gamelib\game_object.h" />
+    <ClInclude Include="lib\gamelib\input_manager.h" />
+    <ClInclude Include="lib\gamelib\physics_object.h" />
+    <ClInclude Include="lib\gamelib\step_object.h" />
+    <ClInclude Include="lib\gamelib\vector2.h" />
+    <ClInclude Include="src\balloon.h" />
     <ClInclude Include="src\balloon_game_state.h" />
   </ItemGroup>
   <ItemGroup>
