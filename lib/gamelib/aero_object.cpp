@@ -8,7 +8,7 @@ AeroObject::AeroObject(const double cd) :
     // Empty Constructor
 }
 
-void AeroObject::pre_step(const StepState* state)
+void AeroObject::pre_step(const StepState*)
 {
     // Get the aerodynamic velocity squared
     const double vm2 = velocity.magnitude_squared();

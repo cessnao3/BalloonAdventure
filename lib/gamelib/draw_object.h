@@ -22,6 +22,11 @@ public:
      * @param state the draw state to use
      */
     virtual void draw(const DrawState* state);
+
+    /**
+     * @brief virtual destructor
+    */
+    virtual ~DrawObject();
 };
 
 #endif // GIO_DRAW_OBJECT_H

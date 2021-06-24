@@ -1,35 +1,64 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 
-#include <gamelib/input_manager.h>
+#include <memory>
+#include <vector>
 
+#include <gamelib/input_manager.h>
+#include <gamelib/draw_object.h>
+#include <gamelib/step_object.h>
+
+#include <allegro5/allegro.h>
+
+/**
+ * @brief Defines basic state information for the overall game state
+ */
 class GameState
 {
 public:
-    GameState()
-    {
-        // Empty Constructor
-    }
+    /**
+     * @brief Constructs the game state
+     */
+    GameState();
 
 public:
-    bool get_running() const
-    {
-        return running;
-    }
+    /**
+     * @brief provides information for whether the game is currently running
+     * @return true if the game is marked to continue to run
+     */
+    bool get_running() const;
 
-    void set_quit()
-    {
-        running = false;
-    }
+    /**
+     * @brief marks the game to trigger a quit event
+     */
+    void set_quit();
 
-    InputManager* get_input_manager()
-    {
-        return &input_manager;
-    }
+    /**
+     * @brief provides the core input manager for the game state
+     * @return a pointer to the game input manager
+     */
+    InputManager* get_input_manager();
+
+    /**
+     * @brief runs the draw algorithm for all drawable parameters
+     */
+    void draw();
+
+    /**
+     * @brief runs the step algorithm for all steppable parameters
+     * @param dt provides the delta time since the last step call
+     */
+    void step(const double dt);
 
 private:
+    std::vector<std::shared_ptr<DrawObject>> draw_objects;
+    std::vector<std::shared_ptr<StepObject>> step_objects;
+
     bool running = true;
     InputManager input_manager;
+
+    DrawState draw_state;
+    StepState step_state;
 };
 
 #endif // BALLOON_GAME_STATE_H

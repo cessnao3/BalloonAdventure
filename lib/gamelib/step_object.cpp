@@ -12,17 +12,17 @@ StepState::~StepState()
     // Do Nothing;
 }
 
-void StepObject::pre_step(const StepState* state)
+void StepObject::pre_step(const StepState*)
 {
     // Do Nothing
 }
 
-void StepObject::step(const StepState* state)
+void StepObject::step(const StepState*)
 {
     // Do Nothing
 }
 
-void StepObject::post_step(const StepState* state)
+void StepObject::post_step(const StepState*)
 {
     // Do Nothing
 }

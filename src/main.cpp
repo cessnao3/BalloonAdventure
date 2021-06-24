@@ -24,8 +24,11 @@ int main()
     al_set_window_title(display, "Balloon Adventure");
 
     // Create framerate and physics timers
-    ALLEGRO_TIMER* frame_timer = al_create_timer(1.0 / 30.0);
-    ALLEGRO_TIMER* physics_timer = al_create_timer(1.0 / 60.0);
+    const double FRAME_PERIOD = 1.0 / 30.0;
+    const double PHYSICS_PERIOD = 1.0 / 60.0;
+
+    ALLEGRO_TIMER* frame_timer = al_create_timer(FRAME_PERIOD);
+    ALLEGRO_TIMER* physics_timer = al_create_timer(PHYSICS_PERIOD);
 
     // Setup the event queue
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -74,6 +77,7 @@ int main()
             else if (game_event.timer.source == frame_timer)
             {
                 // Run frame step
+                state.draw();
 
                 // Check for a quit event
                 if (state.get_input_manager()->get_key_status(ALLEGRO_KEY_ESCAPE))
