@@ -17,6 +17,10 @@ GameState::GameState()
 
     // Add the terrain as a draw object
     draw_objects.push_back(&terrain);
+
+    // Add the balloon parameters
+    draw_objects.push_back(&balloon);
+    step_objects.push_back(&balloon);
 }
 
 bool GameState::get_running() const

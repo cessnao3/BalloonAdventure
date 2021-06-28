@@ -10,7 +10,9 @@
 
 #include <allegro5/allegro.h>
 
-#include "terrain.h"
+#include <balloon/balloon.h>
+
+#include <terrain.h>
 
 /**
  * @brief Defines basic state information for the overall game state
@@ -63,6 +65,8 @@ private:
     StepState step_state;
 
     Terrain terrain;
+
+    Balloon balloon;
 };
 
 #endif // BALLOON_GAME_STATE_H

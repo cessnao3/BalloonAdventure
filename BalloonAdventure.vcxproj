@@ -179,7 +179,11 @@
     <ClCompile Include="lib\gamelib\rectangle.cpp" />
     <ClCompile Include="lib\gamelib\step_object.cpp" />
     <ClCompile Include="lib\gamelib\vector2.cpp" />
-    <ClCompile Include="src\balloon.cpp" />
+    <ClCompile Include="src\balloon\balloon.cpp" />
+    <ClCompile Include="src\balloon\envelope.cpp" />
+    <ClCompile Include="src\balloon\gondola.cpp" />
+    <ClCompile Include="src\balloon\rope.cpp" />
+    <ClCompile Include="src\balloon\weight.cpp" />
     <ClCompile Include="src\game_state.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\terrain.cpp" />
@@ -194,7 +198,11 @@
     <ClInclude Include="lib\gamelib\rectangle.h" />
     <ClInclude Include="lib\gamelib\step_object.h" />
     <ClInclude Include="lib\gamelib\vector2.h" />
-    <ClInclude Include="src\balloon.h" />
+    <ClInclude Include="src\balloon\balloon.h" />
+    <ClInclude Include="src\balloon\envelope.h" />
+    <ClInclude Include="src\balloon\gondola.h" />
+    <ClInclude Include="src\balloon\rope.h" />
+    <ClInclude Include="src\balloon\weight.h" />
     <ClInclude Include="src\game_state.h" />
     <ClInclude Include="src\terrain.h" />
   </ItemGroup>

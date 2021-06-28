@@ -5,14 +5,9 @@
 
 #include <gamelib/physics_object.h>
 
-class AeroObject : public PhysicsObject
-{
-
-};
-
 class Balloon : public GameObject
 {
 
 };
 
-#endif
+#endif // BALLOON_H
