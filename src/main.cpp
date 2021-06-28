@@ -30,7 +30,7 @@ int main()
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
 
     // Create the main display
-    ALLEGRO_DISPLAY* display = al_create_display(800, 600);
+    ALLEGRO_DISPLAY* display = al_create_display(640 * 2, 480 * 3 / 2);
     al_set_window_title(display, "Balloon Adventure");
 
     // Create framerate and physics timers
