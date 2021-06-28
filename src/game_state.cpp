@@ -11,6 +11,11 @@ GameState::GameState()
         static_cast<size_t>(al_get_display_width(display)),
         static_cast<size_t>(al_get_display_height(display)));
 
+    // Set the balloon position
+    balloon.set_position(
+        draw_state.window.get_width() / 2.0,
+        draw_state.window.get_height() / 2.0);
+
     // Define the step state
     step_state.input_manager = get_input_manager();
     step_state.time_step = 0.001;

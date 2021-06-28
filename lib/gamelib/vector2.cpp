@@ -43,8 +43,8 @@ Vector2 Vector2::rotate_rad(const double angle) const
     const double sa = std::sin(angle);
     const double ca = std::cos(angle);
     return Vector2(
-        x * ca + y * sa,
-        -y * sa + x * ca);
+        x * ca + -y * sa,
+        x * sa + y * ca);
 }
 
 Vector2 Vector2::normalize() const

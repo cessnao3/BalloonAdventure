@@ -71,3 +71,14 @@ void PhysicsObject::step_physics(const PhysicsState* state)
     forces = Vector2(0.0, 0.0);
     moments = 0.0;
 }
+
+void PhysicsObject::set_position(const Vector2& pos)
+{
+    position = pos;
+}
+
+void PhysicsObject::set_position(const double x, const double y)
+{
+    position.x = x;
+    position.y = y;
+}

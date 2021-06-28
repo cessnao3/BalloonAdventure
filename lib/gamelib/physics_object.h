@@ -67,6 +67,19 @@ public:
     */
     virtual void step_physics(const PhysicsState* state);
 
+    /**
+     * @brief Sets the position to the position given
+     * @param pos the new position to set
+     */
+    void set_position(const Vector2& pos);
+
+    /**
+     * @brief Sets the position to the position given
+     * @param x the x coordinate
+     * @param y the y coordinate
+     */
+    void set_position(const double x, const double y);
+
 protected:
     Vector2 position;
     Vector2 velocity;
