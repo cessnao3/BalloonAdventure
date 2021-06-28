@@ -2,12 +2,21 @@
 
 GameState::GameState()
 {
+    // Obtain the current window
+    ALLEGRO_DISPLAY* display = al_get_current_display();
+
     // Define the draw state
     draw_state.draw_offset = Vector2();
+    draw_state.window = Rectangle(
+        static_cast<size_t>(al_get_display_width(display)),
+        static_cast<size_t>(al_get_display_height(display)));
 
     // Define the step state
     step_state.input_manager = get_input_manager();
     step_state.time_step = 0.001;
+
+    // Add the terrain as a draw object
+    draw_objects.push_back(&terrain);
 }
 
 bool GameState::get_running() const

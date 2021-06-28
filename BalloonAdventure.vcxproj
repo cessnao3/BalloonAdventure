@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -175,11 +175,14 @@
     <ClCompile Include="lib\gamelib\draw_object.cpp" />
     <ClCompile Include="lib\gamelib\input_manager.cpp" />
     <ClCompile Include="lib\gamelib\physics_object.cpp" />
+    <ClCompile Include="lib\gamelib\polygon.cpp" />
+    <ClCompile Include="lib\gamelib\rectangle.cpp" />
     <ClCompile Include="lib\gamelib\step_object.cpp" />
     <ClCompile Include="lib\gamelib\vector2.cpp" />
     <ClCompile Include="src\balloon.cpp" />
     <ClCompile Include="src\game_state.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\gamelib\aero_object.h" />
@@ -187,10 +190,13 @@
     <ClInclude Include="lib\gamelib\game_object.h" />
     <ClInclude Include="lib\gamelib\input_manager.h" />
     <ClInclude Include="lib\gamelib\physics_object.h" />
+    <ClInclude Include="lib\gamelib\polygon.h" />
+    <ClInclude Include="lib\gamelib\rectangle.h" />
     <ClInclude Include="lib\gamelib\step_object.h" />
     <ClInclude Include="lib\gamelib\vector2.h" />
     <ClInclude Include="src\balloon.h" />
     <ClInclude Include="src\game_state.h" />
+    <ClInclude Include="src\terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

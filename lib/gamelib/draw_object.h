@@ -2,6 +2,7 @@
 #define GIO_DRAW_OBJECT_H
 
 #include "vector2.h"
+#include "rectangle.h"
 
 /**
  * @brief a basic drawing state to use when drawing
@@ -9,6 +10,7 @@
 struct DrawState
 {
     Vector2 draw_offset;
+    Rectangle window;
 };
 
 /**

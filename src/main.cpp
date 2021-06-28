@@ -1,6 +1,7 @@
 // Main Entry Point
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 
 #include <game_state.h>
 
@@ -18,6 +19,15 @@ int main()
     {
         return 1;
     }
+
+    if (!al_init_primitives_addon())
+    {
+        return 1;
+    }
+
+    // Setup Anti-Aliasing
+    al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
+    al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
 
     // Create the main display
     ALLEGRO_DISPLAY* display = al_create_display(800, 600);

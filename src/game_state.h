@@ -10,6 +10,8 @@
 
 #include <allegro5/allegro.h>
 
+#include "terrain.h"
+
 /**
  * @brief Defines basic state information for the overall game state
  */
@@ -51,14 +53,16 @@ public:
     void step(const double dt);
 
 private:
-    std::vector<std::shared_ptr<DrawObject>> draw_objects;
-    std::vector<std::shared_ptr<StepObject>> step_objects;
+    std::vector<DrawObject*> draw_objects;
+    std::vector<StepObject*> step_objects;
 
     bool running = true;
     InputManager input_manager;
 
     DrawState draw_state;
     StepState step_state;
+
+    Terrain terrain;
 };
 
 #endif // BALLOON_GAME_STATE_H

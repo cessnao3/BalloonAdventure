@@ -54,6 +54,15 @@
     <ClCompile Include="lib\gamelib\input_manager.cpp">
       <Filter>Source Files\gamelib</Filter>
     </ClCompile>
+    <ClCompile Include="lib\gamelib\polygon.cpp">
+      <Filter>Source Files\gamelib</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\gamelib\rectangle.cpp">
+      <Filter>Source Files\gamelib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\terrain.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\gamelib\draw_object.h">
@@ -81,6 +90,15 @@
       <Filter>Header Files\src</Filter>
     </ClInclude>
     <ClInclude Include="src\game_state.h">
+      <Filter>Header Files\src</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\gamelib\polygon.h">
+      <Filter>Header Files\gamelib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\gamelib\rectangle.h">
+      <Filter>Header Files\gamelib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\terrain.h">
       <Filter>Header Files\src</Filter>
     </ClInclude>
   </ItemGroup>
