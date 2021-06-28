@@ -83,6 +83,7 @@ int main()
             if (game_event.timer.source == physics_timer)
             {
                 // Run physics step
+                state.step(PHYSICS_PERIOD);
             }
             else if (game_event.timer.source == frame_timer)
             {

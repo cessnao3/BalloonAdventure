@@ -13,6 +13,7 @@
 #include <balloon/balloon.h>
 
 #include <terrain.h>
+#include <world_state.h>
 
 /**
  * @brief Defines basic state information for the overall game state
@@ -62,7 +63,7 @@ private:
     InputManager input_manager;
 
     DrawState draw_state;
-    StepState step_state;
+    WorldState world_state;
 
     Terrain terrain;
 

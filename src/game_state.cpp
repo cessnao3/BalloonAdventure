@@ -17,8 +17,10 @@ GameState::GameState()
         draw_state.window.get_height() / 2.0);
 
     // Define the step state
-    step_state.input_manager = get_input_manager();
-    step_state.time_step = 0.001;
+    world_state.input_manager = get_input_manager();
+    world_state.time_step = 0.001;
+    world_state.gravity = Vector2(0.0, 10.0);
+    world_state.terrain = &terrain;
 
     // Add the terrain as a draw object
     draw_objects.push_back(&terrain);
@@ -71,20 +73,20 @@ void GameState::step(const double dt)
         // Run each pre, step, and post function
         for (auto it = step_objects.begin(); it != step_objects.end(); ++it)
         {
-            (*it)->pre_step(&step_state);
+            (*it)->pre_step(&world_state);
         }
 
         for (auto it = step_objects.begin(); it != step_objects.end(); ++it)
         {
-            (*it)->step(&step_state);
+            (*it)->step(&world_state);
         }
 
         for (auto it = step_objects.begin(); it != step_objects.end(); ++it)
         {
-            (*it)->step(&step_state);
+            (*it)->step(&world_state);
         }
 
         // Increment the current time
-        t += step_state.time_step;
+        t += world_state.time_step;
     }
 }

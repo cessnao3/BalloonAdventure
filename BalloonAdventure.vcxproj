@@ -205,6 +205,7 @@
     <ClInclude Include="src\balloon\weight.h" />
     <ClInclude Include="src\game_state.h" />
     <ClInclude Include="src\terrain.h" />
+    <ClInclude Include="src\world_state.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

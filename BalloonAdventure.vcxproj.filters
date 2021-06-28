@@ -131,6 +131,9 @@
     <ClInclude Include="src\balloon\balloon.h">
       <Filter>Header Files\src\balloon</Filter>
     </ClInclude>
+    <ClInclude Include="src\world_state.h">
+      <Filter>Header Files\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

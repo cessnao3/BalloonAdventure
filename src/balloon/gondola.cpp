@@ -1,5 +1,11 @@
 #include "gondola.h"
 
+#include <world_state.h>
+
+#include <allegro5/allegro_primitives.h>
+
+#include <vector>
+
 Gondola::Gondola() :
     AeroObject(0.1)
 {
@@ -68,4 +74,16 @@ void Gondola::draw(const DrawState* state)
         al_map_rgb(0, 0, 0),
         2.0,
         0.5);
+}
+
+void Gondola::pre_step(const StepState* state)
+{
+    // Check the correct step state
+    const WorldState* world_state = dynamic_cast<const WorldState*>(state);
+    if (world_state == nullptr)
+    {
+        return;
+    }
+
+    // Perform pre-step actions
 }
