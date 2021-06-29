@@ -7,7 +7,7 @@
 
 struct WorldState : PhysicsState
 {
-    Terrain* terrain;
+    Terrain* terrain = nullptr;
 };
 
 #endif // WORLD_STATE_H
