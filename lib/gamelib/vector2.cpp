@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include "constants.h"
+
 Vector2::Vector2() :
         x(0.0),
         y(0.0)
@@ -45,6 +47,11 @@ Vector2 Vector2::rotate_rad(const double angle) const
     return Vector2(
         x * ca + -y * sa,
         x * sa + y * ca);
+}
+
+Vector2 Vector2::rotate_deg(const double angle) const
+{
+    return rotate_rad(angle * gio::pi / 180.0);
 }
 
 Vector2 Vector2::normalize() const
@@ -114,6 +121,11 @@ Vector2& Vector2::operator/=(const double val)
     x /= val;
     y /= val;
     return *this;
+}
+
+double Vector2::distance_to(const Vector2& other) const
+{
+    return (*this - other).magnitude();
 }
 
 Vector2 operator+(const double val, const Vector2& vec)

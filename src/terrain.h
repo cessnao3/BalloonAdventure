@@ -17,8 +17,14 @@ public:
 
     Vector2 surface_normal_at_x(const double x);
 
+    double get_spring_constant() const;
+
+    double get_damping_coefficient() const;
+
+    double get_frictional_cofficient() const;
+
 protected:
-    double base_height = 70.0;
+    double base_height = 650.0;
 
     double spring_constant = 500.0;
     double damping_coefficient = 250.0;

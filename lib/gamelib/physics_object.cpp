@@ -1,5 +1,7 @@
 #include "physics_object.h"
 
+#include "constants.h"
+
 PhysicsObject::PhysicsObject() :
     position(),
     velocity(),
@@ -70,6 +72,9 @@ void PhysicsObject::step_physics(const PhysicsState* state)
     // Clear the forces and moments
     forces = Vector2(0.0, 0.0);
     moments = 0.0;
+
+    // Update the rotation parameter
+    rotation = std::fmod(rotation + gio::pi, 2.0 * gio::pi) - gio::pi;
 }
 
 void PhysicsObject::set_position(const Vector2& pos)

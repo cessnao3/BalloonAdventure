@@ -31,7 +31,7 @@ void Terrain::draw(const DrawState* state)
         terrain_points.add_point(
             Vector2(
                 i + state->draw_offset.x,
-                state->window.get_height() - elevation_at_x(i + state->draw_offset.x)) - state->draw_offset);
+                elevation_at_x(i + state->draw_offset.x)) - state->draw_offset);
     }
 
     // Add the final point
@@ -45,15 +45,6 @@ void Terrain::draw(const DrawState* state)
         al_points.data(),
         static_cast<int>(terrain_points.size()),
         al_map_rgb(50, 150, 75));
-
-    /*
-    al_draw_polygon(
-        al_points.data(),
-        static_cast<int>(terrain_points.size()),
-        ALLEGRO_LINE_JOIN_ROUND,
-        al_map_rgb(0, 0, 0),
-        1.0,
-        0.0);*/
 }
 
 double Terrain::elevation_at_x(const double x)
@@ -66,4 +57,19 @@ Vector2 Terrain::surface_normal_at_x(const double x)
     return Vector2(
         base_amplitude * base_frequency * std::cos(base_frequency * x),
         -1.0).normalize();
+}
+
+double Terrain::get_spring_constant() const
+{
+    return 500.0;
+}
+
+double Terrain::get_damping_coefficient() const
+{
+    return 250.0;
+}
+
+double Terrain::get_frictional_cofficient() const
+{
+    return 100.0;
 }

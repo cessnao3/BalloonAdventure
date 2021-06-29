@@ -172,6 +172,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lib\gamelib\aero_object.cpp" />
+    <ClCompile Include="lib\gamelib\constants.cpp" />
     <ClCompile Include="lib\gamelib\draw_object.cpp" />
     <ClCompile Include="lib\gamelib\input_manager.cpp" />
     <ClCompile Include="lib\gamelib\physics_object.cpp" />
@@ -190,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\gamelib\aero_object.h" />
+    <ClInclude Include="lib\gamelib\constants.h" />
     <ClInclude Include="lib\gamelib\draw_object.h" />
     <ClInclude Include="lib\gamelib\game_object.h" />
     <ClInclude Include="lib\gamelib\input_manager.h" />

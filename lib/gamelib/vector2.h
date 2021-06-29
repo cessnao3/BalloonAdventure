@@ -55,6 +55,13 @@ public:
     Vector2 rotate_rad(const double angle) const;
 
     /**
+     * @brief rotates the vector for the given angle
+     * @param angle the amount to rotate the vector by, in degrees
+     * @return a new rotated vector
+     */
+    Vector2 rotate_deg(const double angle) const;
+
+    /**
      * @brief computes the vector norm
      * @return the normalized version of the current vector
      */
@@ -121,6 +128,13 @@ public:
      * @return a reference to the current vector with the operation completed
      */
     Vector2& operator/=(const double val);
+
+    /**
+     * @brief computes the distance to the other vector
+     * @param other the vector to compute distance to
+     * @return the distnace to the other vector
+     */
+    double distance_to(const Vector2& other) const;
 
 public:
     double x;

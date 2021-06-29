@@ -81,6 +81,9 @@
     <ClCompile Include="src\balloon\weight.cpp">
       <Filter>Source Files\src\balloon</Filter>
     </ClCompile>
+    <ClCompile Include="lib\gamelib\constants.cpp">
+      <Filter>Source Files\gamelib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\gamelib\draw_object.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="src\world_state.h">
       <Filter>Header Files\src</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\gamelib\constants.h">
+      <Filter>Header Files\gamelib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,8 @@
 #include <gamelib/aero_object.h>
 #include <gamelib/vector2.h>
 
+#include <vector>
+
 /**
  * @brief Provides information for the balloon gondola
  */
@@ -50,6 +52,15 @@ public:
      * @param state the step state to utilize
      */
     void pre_step(const StepState* state) override;
+
+    /**
+     * @brief Provides an update on the default step parameters to run right before performing the physics step
+     * @param state the step state to utilize
+    */
+    void step(const StepState* state) override;
+
+protected:
+    std::vector<Vector2> get_points() const;
 
 protected:
     double width;
