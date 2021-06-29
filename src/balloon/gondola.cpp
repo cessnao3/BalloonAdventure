@@ -120,7 +120,7 @@ void Gondola::pre_step(const StepState* state)
         {
             normal_force += it->distance_to(Vector2(it->x, elev)) * world_state->terrain->get_spring_constant() * surf_norm;
 
-            downward_force = -std::min(0.0, normal_force.dot(surf_norm));
+            downward_force = std::max(0.0, normal_force.dot(surf_norm));
 
             normal_force += -std::min(0.0, surf_norm.dot(point_vel)) * world_state->terrain->get_damping_coefficient() * surf_norm;
         }
