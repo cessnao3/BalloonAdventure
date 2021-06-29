@@ -2,6 +2,8 @@
 
 #include "constants.h"
 
+#include <cmath>
+
 PhysicsObject::PhysicsObject() :
     position(),
     velocity(),

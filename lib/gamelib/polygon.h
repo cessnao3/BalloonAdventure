@@ -1,6 +1,7 @@
 #ifndef GIO_POLYGON_H
 #define GIO_POLYGON_H
 
+#include <cstddef>
 #include <vector>
 
 #include "vector2.h"

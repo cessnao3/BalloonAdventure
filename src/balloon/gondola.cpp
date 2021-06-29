@@ -1,8 +1,10 @@
 #include "gondola.h"
 
-#include <world_state.h>
+#include <cmath>
 
 #include <allegro5/allegro_primitives.h>
+
+#include <world_state.h>
 
 Gondola::Gondola() :
     AeroObject(0.1)
@@ -61,8 +63,9 @@ void Gondola::draw(const DrawState* state)
 
     for (auto it = points.begin(); it != points.end(); ++it)
     {
-        al_points.push_back(static_cast<float>(it->x));
-        al_points.push_back(static_cast<float>(it->y));
+        Vector2 gondola_point = *it - state->draw_offset;
+        al_points.push_back(static_cast<float>(gondola_point.x));
+        al_points.push_back(static_cast<float>(gondola_point.y));
     }
 
     // Draw the results

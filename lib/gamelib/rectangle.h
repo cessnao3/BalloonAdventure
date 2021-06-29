@@ -3,6 +3,8 @@
 
 #include "vector2.h"
 
+#include <cstdint>
+
 class Rectangle
 {
 public:
@@ -14,7 +16,7 @@ public:
         // Empty Constructor
     }
 
-    Rectangle(const size_t width, const size_t height) :
+    Rectangle(const uint32_t width, const uint32_t height) :
         top_left_point(0.0, 0.0),
         width(width),
         height(height)
@@ -22,12 +24,12 @@ public:
         // Empty Constructor
     }
 
-    size_t get_width() const
+    uint32_t get_width() const
     {
         return width;
     }
 
-    size_t get_height() const
+    uint32_t get_height() const
     {
         return height;
     }
@@ -54,8 +56,8 @@ public:
 
 protected:
     Vector2 top_left_point;
-    size_t width;
-    size_t height;
+    uint32_t width;
+    uint32_t height;
 };
 
 #endif // GIO_RECTANGLE_H
