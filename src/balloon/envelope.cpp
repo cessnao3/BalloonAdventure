@@ -13,21 +13,24 @@ Envelope::Envelope() :
     // Define phsyics parameters
     mass = 10.0;
     inertia = 5.0;
+
+    // Setup the initial temperature
+    current_temperature = 0.5;
 }
 
 double Envelope::get_radius() const
 {
-    return radius;
+    return interpolate_value(60.0, 100.0);
 }
 
 Vector2 Envelope::anchor_point_left() const
 {
-    return position - Vector2(radius, 0.0).rotate_deg(-30).rotate_rad(rotation);
+    return position - Vector2(get_radius(), 0.0).rotate_deg(-30).rotate_rad(rotation);
 }
 
 Vector2 Envelope::anchor_point_right() const
 {
-    return position + Vector2(radius, 0.0).rotate_deg(30).rotate_rad(rotation);
+    return position + Vector2(get_radius(), 0.0).rotate_deg(30).rotate_rad(rotation);
 }
 
 void Envelope::draw(const DrawState* state)
@@ -36,7 +39,7 @@ void Envelope::draw(const DrawState* state)
     al_draw_filled_circle(
         static_cast<float>(position.x),
         static_cast<float>(position.y),
-        radius,
+        get_radius(),
         al_map_rgb(255, 0, 0));
 
     // Define the anchor points
@@ -56,21 +59,28 @@ void Envelope::draw(const DrawState* state)
         al_map_rgb(0, 0, 0));
 }
 
+double Envelope::interpolate_value(const double min_val, const double max_val) const
+{
+    return std::max(std::min(max_val, min_val * (1.0 - current_temperature) + max_val * current_temperature), min_val);
+}
+
 void Envelope::pre_step(const StepState* state)
 {
     // Perform Pre-Step Items
     AeroObject::pre_step(state);
 
     // Setup lift
-    double vert_force = 300.0;
+    double vert_force = interpolate_value(100.0, 900.0);
     if (state->input_manager->get_dir_up())
     {
-        vert_force += 400.0;
+        current_temperature += 0.5 * state->time_step;
     }
     if (state->input_manager->get_dir_down())
     {
-        vert_force -= 200.0;
+        current_temperature -= 0.5 * state->time_step;
     }
+
+    current_temperature = std::min(std::max(0.0, current_temperature), 1.0);
 
     // Setup lateral forces
     double lat_force = 0.0;

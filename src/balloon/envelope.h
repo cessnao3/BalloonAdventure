@@ -21,11 +21,15 @@ public:
 
     virtual void draw(const DrawState* state) override;
 
+    double interpolate_value(const double min_val, const double max_val) const;
+
     ~Envelope();
 
 protected:
     double radius;
     ALLEGRO_BITMAP* bitmap;
+
+    double current_temperature;
 };
 
 #endif // ENVELOPE_H
