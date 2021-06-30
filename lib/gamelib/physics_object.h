@@ -57,15 +57,20 @@ public:
 
     /**
      * @brief Steps the core physics state
-     * @param state the physics state to use to step
+     * @param state the step (physics) state to use
     */
     virtual void step(const StepState* state) override;
 
     /**
-     * @brief Steps the physics state
-     * @param state the physics state to use
-    */
-    virtual void step_physics(const PhysicsState* state);
+     * @brief Runs after the main step
+     * @param state the step state to use
+     */
+    virtual void post_step(const StepState* state) override;
+
+    /**
+     * @brief Resets all forces and moments within the physics object to 0
+     */
+    virtual void reset_forces();
 
     /**
      * @brief Sets the position to the position given

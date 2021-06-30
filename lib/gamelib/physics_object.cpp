@@ -4,6 +4,8 @@
 
 #include <cmath>
 
+#include <stdexcept>
+
 PhysicsObject::PhysicsObject() :
     position(),
     velocity(),
@@ -50,33 +52,44 @@ void PhysicsObject::add_force_absolute(
 
 void PhysicsObject::step(const StepState* state)
 {
+    // Run the super-step
+    StepObject::step(state);
+
     // Extract the physics state
     const PhysicsState* physics = dynamic_cast<const PhysicsState*>(state);
     if (physics != nullptr)
     {
-        step_physics(physics);
+        // Extract the time step
+        const double dt = physics->time_step;
+
+        // Integrate translational motion
+        velocity += forces / mass * dt + physics->gravity * dt;
+        position += velocity * dt;
+
+        // Integrate rotational motion
+        rotational_vel += moments / inertia * dt;
+        rotation += rotational_vel * dt;
+        rotation = std::fmod(rotation + gio::pi, 2.0 * gio::pi) - gio::pi;
+    }
+    else
+    {
+        throw std::runtime_error("physics step must get a physics object for correct computations");
     }
 }
 
-void PhysicsObject::step_physics(const PhysicsState* state)
+void PhysicsObject::post_step(const StepState* state)
 {
-    // Extract the time step
-    const double dt = state->time_step;
-
-    // Integrate translational motion
-    velocity += forces / mass * dt + state->gravity * dt;
-    position += velocity * dt;
-
-    // Integrate rotational motion
-    rotational_vel += moments / inertia * dt;
-    rotation = rotational_vel * dt;
-
+    // Run the super-step
+    StepObject::post_step(state);
+    
     // Clear the forces and moments
+    reset_forces();
+}
+
+void PhysicsObject::reset_forces()
+{
     forces = Vector2(0.0, 0.0);
     moments = 0.0;
-
-    // Update the rotation parameter
-    rotation = std::fmod(rotation + gio::pi, 2.0 * gio::pi) - gio::pi;
 }
 
 void PhysicsObject::set_position(const Vector2& pos)

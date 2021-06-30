@@ -83,7 +83,7 @@ void GameState::step(const double dt)
 
         for (auto it = step_objects.begin(); it != step_objects.end(); ++it)
         {
-            (*it)->step(&world_state);
+            (*it)->post_step(&world_state);
         }
     }
 }
