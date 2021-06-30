@@ -3,6 +3,7 @@
 #include <cmath>
 #include <stdexcept>
 
+#include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
 #include <world_state.h>
@@ -14,6 +15,7 @@ Gondola::Gondola() :
     inertia = 10.0;
     width = 40.0;
     height = 30.0;
+    bitmap = nullptr;
 }
 
 Vector2 Gondola::get_top_left() const
@@ -56,31 +58,43 @@ std::vector<Vector2> Gondola::get_points() const
 
 void Gondola::draw(const DrawState* state)
 {
-    // Define the core points
-    const std::vector<Vector2> points = get_points();
-
-    // Add each point to a vector for use in drawing
-    std::vector<float> al_points;
-
-    for (auto it = points.begin(); it != points.end(); ++it)
+    if (bitmap == nullptr)
     {
-        Vector2 gondola_point = *it - state->draw_offset;
-        al_points.push_back(static_cast<float>(gondola_point.x));
-        al_points.push_back(static_cast<float>(gondola_point.y));
+        // Save the old bitmap target
+        ALLEGRO_BITMAP* const prev_bitmap = al_get_target_bitmap();
+
+        // Create the new bitmap
+        bitmap = al_create_bitmap(width, height);
+        al_set_target_bitmap(bitmap);
+
+        // Draw the basic rectangle
+        al_draw_filled_rectangle(
+            0.0f,
+            0.0f,
+            static_cast<float>(width),
+            static_cast<float>(height),
+            al_map_rgb(100, 100, 100));
+        al_draw_rectangle(
+            0.0f,
+            0.0f,
+            static_cast<float>(width),
+            static_cast<float>(height),
+            al_map_rgb(0, 0, 0),
+            4.0f);
+
+        // Reset the bitmap target
+        al_set_target_bitmap(prev_bitmap);
     }
 
-    // Draw the results
-    al_draw_filled_polygon(
-        al_points.data(),
-        static_cast<int>(points.size()),
-        al_map_rgb(100, 100, 100));
-    al_draw_polygon(
-        al_points.data(),
-        static_cast<int>(points.size()),
-        ALLEGRO_LINE_JOIN_BEVEL,
-        al_map_rgb(0, 0, 0),
-        2.0,
-        0.5);
+    // Draw the resulting bitmap on screen
+    al_draw_rotated_bitmap(
+        bitmap,
+        static_cast<float>(width) / 2.0f,
+        static_cast<float>(height) / 2.0f,
+        static_cast<float>(position.x),
+        static_cast<float>(position.y),
+        static_cast<float>(rotation),
+        0);
 }
 
 void Gondola::pre_step(const StepState* state)
@@ -163,4 +177,13 @@ void Gondola::step(const StepState* state)
 
     // Call the super-state
     AeroObject::step(state);
+}
+
+Gondola::~Gondola()
+{
+    if (bitmap != nullptr)
+    {
+        al_destroy_bitmap(bitmap);
+        bitmap = nullptr;
+    }
 }

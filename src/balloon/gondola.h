@@ -6,6 +6,8 @@
 
 #include <vector>
 
+#include <allegro5/bitmap.h>
+
 /**
  * @brief Provides information for the balloon gondola
  */
@@ -59,12 +61,17 @@ public:
     */
     void step(const StepState* state) override;
 
+    /* Destructor */
+    ~Gondola();
+
 protected:
     std::vector<Vector2> get_points() const;
 
 protected:
     double width;
     double height;
+
+    ALLEGRO_BITMAP* bitmap;
 };
 
 #endif // GONDOLA_H
