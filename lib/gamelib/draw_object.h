@@ -2,15 +2,16 @@
 #define GIO_DRAW_OBJECT_H
 
 #include "vector2.h"
-#include "rectangle.h"
+
+#include <allegro5/display.h>
 
 /**
  * @brief a basic drawing state to use when drawing
  */
 struct DrawState
 {
-    Vector2 draw_offset;
-    Rectangle window;
+    Vector2 draw_offset = Vector2();
+    ALLEGRO_DISPLAY* display = nullptr;
 };
 
 /**

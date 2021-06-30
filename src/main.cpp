@@ -62,7 +62,7 @@ int main()
     al_start_timer(physics_timer);
 
     // Determine if the game should be running
-    GameState state;
+    GameState state(display);
 
     // Parameter to check for game events
     ALLEGRO_EVENT game_event;

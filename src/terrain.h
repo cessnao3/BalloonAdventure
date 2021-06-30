@@ -6,6 +6,8 @@
 
 #include <gamelib/polygon.h>
 
+#include <allegro5/allegro.h>
+
 class Terrain : public DrawObject
 {
 public:
@@ -23,6 +25,8 @@ public:
 
     double get_frictional_cofficient() const;
 
+    ~Terrain();
+
 protected:
     double base_height = 650.0;
 
@@ -35,6 +39,7 @@ protected:
 
 private:
     Polygon terrain_points;
+    ALLEGRO_BITMAP* bitmap;
 };
 
 #endif // TERRAIN_H

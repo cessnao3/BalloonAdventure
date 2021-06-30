@@ -24,7 +24,7 @@ public:
     /**
      * @brief Constructs the game state
      */
-    GameState();
+    GameState(ALLEGRO_DISPLAY* display);
 
 public:
     /**
