@@ -115,25 +115,26 @@ void Gondola::pre_step(const StepState* state)
 
         double downward_force = 0.0;
 
-        // Calculate the normal force if needed
+        // Calculate the terrain forces if necessary
         if (it->y > elev)
         {
-            normal_force += it->distance_to(Vector2(it->x, elev)) * world_state->terrain->get_spring_constant() * surf_norm;
+            // Calculate the normal force spring and damping forces
+            Vector2 spring_force = it->distance_to(Vector2(it->x, elev)) * world_state->terrain->get_spring_constant() * surf_norm;
+            Vector2 damping_force = std::max(0.0, -surf_norm.dot(point_vel)) * world_state->terrain->get_damping_coefficient() * surf_norm;
+            damping_force = damping_force * std::min((damping_force.magnitude_squared() / spring_force.magnitude_squared()), 0.1);
 
-            downward_force = std::max(0.0, normal_force.dot(surf_norm));
+            normal_force += spring_force;
+            normal_force += damping_force;
 
-            normal_force += -std::min(0.0, surf_norm.dot(point_vel)) * world_state->terrain->get_damping_coefficient() * surf_norm;
-        }
-
-        // Calculate the frictional force if needed
-        if (it->y > elev - 1)
-        {
             // Determine the along-terrain force and magnitude velocity-wise
             Vector2 along_terrain = surf_norm.rotate_deg(90.0);
             along_terrain *= -velocity.dot(along_terrain);
 
             // Determine static vs. kinematic frictional coefficient
             const double FRICTION_COEFF = (std::abs(point_vel.dot(along_terrain)) > 1.0) ? 0.15 : 0.25;
+
+            // Determine the downward force on the object
+            downward_force = std::max(0.0, normal_force.dot(surf_norm));
 
             // Set the frictional force
             frictional_force = FRICTION_COEFF * downward_force * along_terrain;
@@ -145,14 +146,14 @@ void Gondola::pre_step(const StepState* state)
     }
 
     // Add rotational damping term
-    moments += -std::pow(rotational_vel, 2.0) * 0.1;
+    //moments += -std::pow(rotational_vel, 2.0) * 0.01;
 }
 
 void Gondola::step(const StepState* state)
 {
     // Limit the moments seen
-    const double MOMENT_LIM = 2000.0;
-    moments = std::min(std::max(-MOMENT_LIM, moments), MOMENT_LIM);
+    //const double MOMENT_LIM = 10000.0;
+    //moments = std::min(std::max(-MOMENT_LIM, moments), MOMENT_LIM);
 
     // Perform the normal step
     AeroObject::step(state);

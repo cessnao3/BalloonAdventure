@@ -35,7 +35,7 @@ int main()
 
     // Create framerate and physics timers
     const double FRAME_PERIOD = 1.0 / 30.0;
-    const double PHYSICS_PERIOD = 1.0 / 60.0;
+    const double PHYSICS_PERIOD = 1.0 / 30.0;
 
     ALLEGRO_TIMER* frame_timer = al_create_timer(FRAME_PERIOD);
     ALLEGRO_TIMER* physics_timer = al_create_timer(PHYSICS_PERIOD);

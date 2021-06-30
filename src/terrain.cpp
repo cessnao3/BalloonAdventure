@@ -22,7 +22,7 @@ void Terrain::draw(const DrawState* state)
     terrain_points.add_point(state->window.get_bottom_right());
 
     // Define the window width
-    const int window_width = state->window.get_width();
+    const int window_width = static_cast<int>(state->window.get_width());
 
     // Iterate over each point to assign to the results
     for (int i = window_width; i >= 0; --i)
@@ -61,12 +61,12 @@ Vector2 Terrain::surface_normal_at_x(const double x)
 
 double Terrain::get_spring_constant() const
 {
-    return 500.0;
+    return 1500.0;
 }
 
 double Terrain::get_damping_coefficient() const
 {
-    return 250.0;
+    return 500.0;
 }
 
 double Terrain::get_frictional_cofficient() const
