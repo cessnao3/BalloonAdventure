@@ -102,3 +102,8 @@ void PhysicsObject::set_position(const double x, const double y)
     position.x = x;
     position.y = y;
 }
+
+Vector2 PhysicsObject::get_position() const
+{
+    return position;
+}

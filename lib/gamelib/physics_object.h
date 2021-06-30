@@ -85,6 +85,11 @@ public:
      */
     void set_position(const double x, const double y);
 
+    /**
+     * @brief Provides the current object position
+     */
+    Vector2 get_position() const;
+
 protected:
     Vector2 position;
     Vector2 velocity;

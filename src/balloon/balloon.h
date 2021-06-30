@@ -4,42 +4,34 @@
 #include <gamelib/game_object.h>
 
 #include "gondola.h"
+#include "envelope.h"
+#include "rope.h"
+
+#include <vector>
 
 class Balloon : public GameObject
 {
 public:
-    Balloon()
-    {
-        // Empty Constructor
-    }
+    Balloon();
 
-    void set_position(const double x, const double y)
-    {
-        gondola.set_position(x, y);
-    }
+    void set_position(const double x, const double y);
 
-    virtual void draw(const DrawState* state) override
-    {
-        gondola.draw(state);
-    }
+    virtual void draw(const DrawState* state) override;
 
-    virtual void pre_step(const StepState* state) override
-    {
-        gondola.pre_step(state);
-    }
+    virtual void pre_step(const StepState* state) override;
 
-    virtual void step(const StepState* state) override
-    {
-        gondola.step(state);
-    }
+    virtual void step(const StepState* state) override;
 
-    virtual void post_step(const StepState* state) override
-    {
-        gondola.post_step(state);
-    }
+    virtual void post_step(const StepState* state) override;
 
 protected:
     Gondola gondola;
+    Envelope envelope;
+
+    Rope rope_1;
+    Rope rope_2;
+
+    std::vector<GameObject*> objects;
 };
 
 #endif // BALLOON_H
