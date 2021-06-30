@@ -61,12 +61,12 @@ Vector2 Terrain::surface_normal_at_x(const double x)
 
 double Terrain::get_spring_constant() const
 {
-    return 1500.0;
+    return 700.0;
 }
 
 double Terrain::get_damping_coefficient() const
 {
-    return 500.0;
+    return 350.0;
 }
 
 double Terrain::get_frictional_cofficient() const

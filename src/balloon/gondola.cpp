@@ -1,6 +1,7 @@
 #include "gondola.h"
 
 #include <cmath>
+#include <stdexcept>
 
 #include <allegro5/allegro_primitives.h>
 
@@ -10,7 +11,7 @@ Gondola::Gondola() :
     AeroObject(0.1)
 {
     mass = 50.0;
-    inertia = 3.0;
+    inertia = 10.0;
     width = 40.0;
     height = 30.0;
 }
@@ -84,11 +85,14 @@ void Gondola::draw(const DrawState* state)
 
 void Gondola::pre_step(const StepState* state)
 {
+    // Run the super-pre-step
+    AeroObject::pre_step(state);
+
     // Check the correct step state
     const WorldState* world_state = dynamic_cast<const WorldState*>(state);
     if (world_state == nullptr)
     {
-        return;
+        throw std::runtime_error("world step must get a physics object for correct computations");
     }
 
     // Define the points to check parameters for
@@ -107,7 +111,7 @@ void Gondola::pre_step(const StepState* state)
             point_offset.x) * rotational_vel;
 
         // Obtain the surface normal
-        const Vector2 surf_norm = world_state->terrain->surface_normal_at_x(it->x);
+        const Vector2 surf_norm = Vector2(0.0, -1.0);
 
         // Setup the normal and frictional forces
         Vector2 normal_force;
@@ -120,8 +124,13 @@ void Gondola::pre_step(const StepState* state)
         {
             // Calculate the normal force spring and damping forces
             Vector2 spring_force = it->distance_to(Vector2(it->x, elev)) * world_state->terrain->get_spring_constant() * surf_norm;
-            Vector2 damping_force = std::max(0.0, -surf_norm.dot(point_vel)) * world_state->terrain->get_damping_coefficient() * surf_norm;
-            damping_force = damping_force * std::min((damping_force.magnitude_squared() / spring_force.magnitude_squared()), 0.1);
+
+            const double upward_damping_force = -surf_norm.dot(point_vel);
+            //const double downward_damping_force = -0.1 * mass * world_state->gravity.magnitude();
+            const double downward_damping_force = 0.0;
+
+            Vector2 damping_force = std::max(downward_damping_force, upward_damping_force) * world_state->terrain->get_damping_coefficient() * surf_norm;
+            //damping_force = damping_force * std::min((damping_force.magnitude_squared() / spring_force.magnitude_squared()), 0.1);
 
             normal_force += spring_force;
             normal_force += damping_force;
@@ -144,17 +153,14 @@ void Gondola::pre_step(const StepState* state)
         add_force_absolute(normal_force, point_offset);
         add_force_absolute(frictional_force, point_offset);
     }
-
-    // Add rotational damping term
-    //moments += -std::pow(rotational_vel, 2.0) * 0.01;
 }
 
 void Gondola::step(const StepState* state)
 {
-    // Limit the moments seen
-    //const double MOMENT_LIM = 10000.0;
-    //moments = std::min(std::max(-MOMENT_LIM, moments), MOMENT_LIM);
+    // Limit the moments allowed
+    const double MOMENT_LIM = 2000.0;
+    moments = std::max(-MOMENT_LIM, std::min(MOMENT_LIM, moments));
 
-    // Perform the normal step
+    // Call the super-state
     AeroObject::step(state);
 }
