@@ -12,7 +12,7 @@ Gondola::Gondola() :
     AeroObject(0.1)
 {
     mass = 50.0;
-    inertia = 10.0;
+    inertia = 50.0;
     width = 40.0;
     height = 30.0;
     bitmap = nullptr;

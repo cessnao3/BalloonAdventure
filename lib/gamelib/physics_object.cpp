@@ -107,3 +107,16 @@ Vector2 PhysicsObject::get_position() const
 {
     return position;
 }
+
+Vector2 PhysicsObject::get_velocity() const
+{
+    return velocity;
+}
+
+Vector2 PhysicsObject::get_velocity_at_absolute(const Vector2& point)
+{
+    const Vector2 offset = point - get_position();
+    return velocity + rotational_vel * Vector2(
+        -offset.y,
+        offset.x);
+}

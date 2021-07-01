@@ -66,9 +66,22 @@ void Rope::pre_step(const StepState* state)
 
     const Vector2 force_dir = (point_b - point_a).normalize();
 
+    // Determine the velocity at each point
+    const Vector2 vel_a = obj_a->get_velocity_at_absolute(point_a);
+    const Vector2 vel_b = obj_b->get_velocity_at_absolute(point_b);
+
+    // Obtain the velocity difference
+    const double velocity_diff = (vel_b - vel_a).dot(force_dir);
+
+    // Add a damping force
+    const double damping_force = 0.01 * spring_constant * velocity_diff;
+
+    // Define the total force
+    const double total_force = spring_force + damping_force;
+
     // Apply forces to the respective objects
-    obj_a->add_force_absolute(force_dir * spring_force, offset_a);
-    obj_b->add_force_absolute(force_dir * -spring_force, offset_b);
+    obj_a->add_force_absolute(force_dir * total_force, offset_a);
+    obj_b->add_force_absolute(force_dir * -total_force, offset_b);
 
     /*
     self.point_a.obj.add_force(

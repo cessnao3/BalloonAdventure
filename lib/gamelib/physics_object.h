@@ -87,8 +87,22 @@ public:
 
     /**
      * @brief Provides the current object position
+     * @return the current position
      */
     Vector2 get_position() const;
+
+    /**
+     * @brief Provides the current object central velocity
+     * @return the current velocity
+     */
+    Vector2 get_velocity() const;
+
+    /**
+     * @brief Provides the current object velocity at the point requested
+     * @param point the other point to check the velocity at in absolute coordinates
+     * @return the current velocity at the point provided
+     */
+    Vector2 get_velocity_at_absolute(const Vector2& point);
 
 protected:
     Vector2 position;
