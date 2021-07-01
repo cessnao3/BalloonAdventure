@@ -23,13 +23,19 @@ public:
 
     double interpolate_value(const double min_val, const double max_val) const;
 
+    bool get_valve_open() const;
+
+    bool get_burner_on() const;
+
     ~Envelope();
 
 protected:
     double radius;
-    ALLEGRO_BITMAP* bitmap;
 
     double current_temperature;
+
+    bool burner_on;
+    bool valve_open;
 };
 
 #endif // ENVELOPE_H

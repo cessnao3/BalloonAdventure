@@ -6,6 +6,7 @@
 #include "gondola.h"
 #include "envelope.h"
 #include "rope.h"
+#include "weight.h"
 
 #include <vector>
 
@@ -30,6 +31,12 @@ protected:
 
     Rope rope_1;
     Rope rope_2;
+
+    Weight weight_1;
+    Weight weight_2;
+
+    Rope rope_3;
+    Rope rope_4;
 
     std::vector<GameObject*> objects;
 };

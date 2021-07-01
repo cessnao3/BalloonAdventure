@@ -2,8 +2,11 @@
 
 #include <cmath>
 
-AeroObject::AeroObject(const double cd) :
-    cd(cd)
+AeroObject::AeroObject(
+    const double cd_translation,
+    const double cd_rotation) :
+    cd_translation(cd_translation),
+    cd_rotation(cd_rotation)
 {
     // Empty Constructor
 }
@@ -19,10 +22,10 @@ void AeroObject::pre_step(const StepState* state)
     // Apply drag in the opposite direction if the magnitude is great enough
     if (std::abs(vm2) > 1e-6)
     {
-        const Vector2 drag = -0.5 * cd * vm2 * velocity.normalize();
+        const Vector2 drag = -0.5 * cd_translation * vm2 * velocity.normalize();
         add_force_absolute(drag);
     }
     
     // Apply rotational drag
-    moments -= 0.5 * rotational_vel * rotational_vel * cd;
+    moments -= 0.5 * rotational_vel * rotational_vel * cd_rotation;
 }

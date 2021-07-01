@@ -74,7 +74,7 @@ void Rope::pre_step(const StepState* state)
     const double velocity_diff = (vel_b - vel_a).dot(force_dir);
 
     // Add a damping force
-    const double damping_force = 0.01 * spring_constant * velocity_diff;
+    const double damping_force = 0.01 * spring_constant * velocity_diff * 0.0;
 
     // Define the total force
     const double total_force = spring_force + damping_force;

@@ -10,10 +10,13 @@ class AeroObject : public PhysicsObject
 {
 public:
     /**
-     * @brief constructs the aerodynamics object
-     * @param cd the drag coefficient to use
-    */
-    AeroObject(const double cd);
+     * @brief construcst the aerodynamics object
+     * @param cd_translation the translational drag coefficient to use
+     * @param cd_rotation the rotational drag coefficient to use
+     */
+    AeroObject(
+        const double cd_translation,
+        const double cd_rotation);
 
     /**
      * @brief state to run before the physics step to setup the aerodynamics forces
@@ -22,7 +25,8 @@ public:
     virtual void pre_step(const StepState* state) override;
 
 protected:
-    double cd;
+    double cd_translation;
+    double cd_rotation;
 };
 
 #endif

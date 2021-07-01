@@ -2,6 +2,8 @@
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #include <game_state.h>
 
@@ -12,16 +14,31 @@ int main()
     // Initialize the Allegro library
     if (!al_init())
     {
+        std::cerr << "Unable to init Allegro library" << std::endl;
         return 1;
     }
 
     if (!al_install_keyboard())
     {
+        std::cerr << "Unable to init Allegro keyboard addon" << std::endl;
         return 1;
     }
 
     if (!al_init_primitives_addon())
     {
+        std::cerr << "Unable to init Allegro primitives addon" << std::endl;
+        return 1;
+    }
+
+    if (!al_install_audio())
+    {
+        std::cerr << "Unable to init Allegro audio addon" << std::endl;
+        return 1;
+    }
+
+    if (!al_init_acodec_addon())
+    {
+        std::cerr << "Unable to init Allegro audio codec addon" << std::endl;
         return 1;
     }
 

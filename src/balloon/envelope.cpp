@@ -4,8 +4,7 @@
 #include <allegro5/allegro_primitives.h>
 
 Envelope::Envelope() :
-    AeroObject(0.5),
-    bitmap(nullptr)
+    AeroObject(0.5, 0.3)
 {
     // Define the radius
     radius = 60.0;
@@ -40,7 +39,10 @@ void Envelope::draw(const DrawState* state)
         static_cast<float>(position.x),
         static_cast<float>(position.y),
         get_radius(),
-        al_map_rgb(255, 0, 0));
+        al_map_rgb(
+            static_cast<unsigned char>(interpolate_value(200.0, 200.0)),
+            static_cast<unsigned char>(interpolate_value(100.0, 0.0)),
+            static_cast<unsigned char>(interpolate_value(100.0, 0.0))));
 
     // Define the anchor points
     const Vector2 a_left = anchor_point_left();
@@ -61,7 +63,7 @@ void Envelope::draw(const DrawState* state)
 
 double Envelope::interpolate_value(const double min_val, const double max_val) const
 {
-    return std::max(std::min(max_val, min_val * (1.0 - current_temperature) + max_val * current_temperature), min_val);
+    return min_val * (1.0 - current_temperature) + max_val * current_temperature;
 }
 
 void Envelope::pre_step(const StepState* state)
@@ -70,16 +72,31 @@ void Envelope::pre_step(const StepState* state)
     AeroObject::pre_step(state);
 
     // Setup lift
-    double vert_force = interpolate_value(100.0, 900.0);
+    double vert_force = interpolate_value(300.0, 1100.0);
     if (state->input_manager->get_dir_up())
     {
-        current_temperature += 0.5 * state->time_step;
+        current_temperature += 0.1 * state->time_step;
+        burner_on = true;
     }
-    if (state->input_manager->get_dir_down())
+    else
     {
-        current_temperature -= 0.5 * state->time_step;
+        burner_on = false;
     }
 
+    if (state->input_manager->get_dir_down())
+    {
+        current_temperature -= 0.1 * state->time_step;
+        valve_open = true;
+    }
+    else
+    {
+        valve_open = false;
+    }
+
+    // Decay the current temperature
+    current_temperature -= 0.02 * current_temperature * state->time_step;
+
+    // Limit the current temperature value
     current_temperature = std::min(std::max(0.0, current_temperature), 1.0);
 
     // Setup lateral forces
@@ -97,11 +114,17 @@ void Envelope::pre_step(const StepState* state)
     add_force_absolute(Vector2(lat_force, -vert_force));
 }
 
+bool Envelope::get_valve_open() const
+{
+    return valve_open;
+}
+
+bool Envelope::get_burner_on() const
+{
+    return burner_on;
+}
+
 Envelope::~Envelope()
 {
-    if (bitmap != nullptr)
-    {
-        al_destroy_bitmap(bitmap);
-        bitmap = nullptr;
-    }
+    // Empty Destructor
 }
