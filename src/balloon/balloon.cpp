@@ -86,3 +86,8 @@ void Balloon::post_step(const StepState* state)
         (*it)->post_step(state);
     }
 }
+
+const Envelope& Balloon::get_envelope() const
+{
+    return envelope;
+}

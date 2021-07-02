@@ -25,6 +25,8 @@ public:
 
     virtual void post_step(const StepState* state) override;
 
+    const Envelope& get_envelope() const;
+
 protected:
     Gondola gondola;
     Envelope envelope;

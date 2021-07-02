@@ -57,6 +57,12 @@ int main()
     ALLEGRO_TIMER* frame_timer = al_create_timer(FRAME_PERIOD);
     ALLEGRO_TIMER* physics_timer = al_create_timer(PHYSICS_PERIOD);
 
+    // Define a voice to use for playing audio
+    ALLEGRO_VOICE* main_voice = al_create_voice(
+        44100,
+        ALLEGRO_AUDIO_DEPTH_INT16,
+        ALLEGRO_CHANNEL_CONF_2);
+
     // Setup the event queue
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
 
@@ -78,50 +84,64 @@ int main()
     al_start_timer(frame_timer);
     al_start_timer(physics_timer);
 
-    // Determine if the game should be running
-    GameState state(display);
-
-    // Parameter to check for game events
-    ALLEGRO_EVENT game_event;
-
-    // Run the main game loop
-    while (state.get_running())
+    // Define a scope for the game itself
     {
-        // Wait for the next event
-        al_wait_for_event(event_queue, &game_event);
+        // Determine if the game should be running
+        GameState state(display);
 
-        // Check each event type
-        switch (game_event.type)
+        // Initialize the game state
+        if (!state.init())
         {
-        case ALLEGRO_EVENT_DISPLAY_CLOSE:
+            std::cerr << "Unable to initialize game state" << std::endl;
             state.set_quit();
-            break;
-        case ALLEGRO_EVENT_TIMER:
-            if (game_event.timer.source == physics_timer)
-            {
-                // Run physics step
-                state.step(PHYSICS_PERIOD);
-            }
-            else if (game_event.timer.source == frame_timer)
-            {
-                // Run frame step
-                state.draw();
+        }
 
-                // Check for a quit event
-                if (state.get_input_manager()->get_key_status(ALLEGRO_KEY_ESCAPE))
+        // Assign the default mixer
+        al_set_default_mixer(state.get_sound_manager()->get_mixer());
+        al_attach_mixer_to_voice(state.get_sound_manager()->get_mixer(), main_voice);
+
+        // Parameter to check for game events
+        ALLEGRO_EVENT game_event;
+
+        // Run the main game loop
+        while (state.get_running())
+        {
+            // Wait for the next event
+            al_wait_for_event(event_queue, &game_event);
+
+            // Check each event type
+            switch (game_event.type)
+            {
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                state.set_quit();
+                break;
+            case ALLEGRO_EVENT_TIMER:
+                if (game_event.timer.source == physics_timer)
                 {
-                    state.set_quit();
+                    // Run physics step
+                    state.step(PHYSICS_PERIOD);
                 }
+                else if (game_event.timer.source == frame_timer)
+                {
+                    // Run frame step
+                    state.draw();
+
+                    // Check for a quit event
+                    if (state.get_input_manager()->get_key_status(ALLEGRO_KEY_ESCAPE))
+                    {
+                        state.set_quit();
+                    }
+                }
+                break;
+            case ALLEGRO_EVENT_KEY_DOWN:
+                state.get_input_manager()->set_key_down(game_event.keyboard.keycode);
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                state.get_input_manager()->set_key_up(game_event.keyboard.keycode);
+                break;
+            default:
+                break;
             }
-            break;
-        case ALLEGRO_EVENT_KEY_DOWN:
-            state.get_input_manager()->set_key_down(game_event.keyboard.keycode);
-            break;
-        case ALLEGRO_EVENT_KEY_UP:
-            state.get_input_manager()->set_key_up(game_event.keyboard.keycode);
-            break;
-        default:
-            break;
         }
     }
 
@@ -130,11 +150,16 @@ int main()
     al_destroy_event_queue(event_queue);
     al_destroy_timer(frame_timer);
     al_destroy_timer(physics_timer);
+    al_destroy_voice(main_voice);
 
     display = nullptr;
     event_queue = nullptr;
     frame_timer = nullptr;
     physics_timer = nullptr;
+
+    // Uninstall add-ons
+    al_uninstall_audio();
+    al_uninstall_keyboard();
 
     // Return success
     return 0;

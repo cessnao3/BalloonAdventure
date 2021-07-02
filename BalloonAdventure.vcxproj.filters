@@ -84,6 +84,9 @@
     <ClCompile Include="lib\gamelib\constants.cpp">
       <Filter>Source Files\gamelib</Filter>
     </ClCompile>
+    <ClCompile Include="src\sound_manager.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\gamelib\draw_object.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="lib\gamelib\constants.h">
       <Filter>Header Files\gamelib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sound_manager.h">
+      <Filter>Header Files\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,8 @@
 #include <terrain.h>
 #include <world_state.h>
 
+#include <sound_manager.h>
+
 /**
  * @brief Defines basic state information for the overall game state
  */
@@ -25,6 +27,12 @@ public:
      * @brief Constructs the game state
      */
     GameState(ALLEGRO_DISPLAY* display);
+
+    /**
+     * @brief Initializes any non-constructor init items
+     * @return true if successfully initialized
+     */
+    bool init();
 
 public:
     /**
@@ -45,6 +53,12 @@ public:
     InputManager* get_input_manager();
 
     /**
+     * @brief provides the core sound manager for the game state
+     * @return a poionter to the sound manager
+    */
+    SoundManager* get_sound_manager();
+
+    /**
      * @brief runs the draw algorithm for all drawable parameters
      */
     void draw();
@@ -60,7 +74,10 @@ private:
     std::vector<StepObject*> step_objects;
 
     bool running = true;
+
     InputManager input_manager;
+
+    SoundManager sound_manager;
 
     DrawState draw_state;
     WorldState world_state;

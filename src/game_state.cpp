@@ -25,6 +25,11 @@ GameState::GameState(ALLEGRO_DISPLAY* display)
     step_objects.push_back(&balloon);
 }
 
+bool GameState::init()
+{
+    return sound_manager.init();
+}
+
 bool GameState::get_running() const
 {
     return running;
@@ -38,6 +43,11 @@ void GameState::set_quit()
 InputManager* GameState::get_input_manager()
 {
     return &input_manager;
+}
+
+SoundManager* GameState::get_sound_manager()
+{
+    return &sound_manager;
 }
 
 void GameState::draw()
@@ -54,6 +64,11 @@ void GameState::draw()
 
     // Flip the screen
     al_flip_display();
+
+    // Update sounds
+    sound_manager.set_burner_state(balloon.get_envelope().get_burner_on() ? SoundManager::BurnerState::ON : SoundManager::BurnerState::OFF);
+    sound_manager.set_valve_state(balloon.get_envelope().get_valve_open() ? SoundManager::ValveState::OPEN : SoundManager::ValveState::CLOSED);
+    sound_manager.update_background();
 }
 
 void GameState::step(const double dt)
