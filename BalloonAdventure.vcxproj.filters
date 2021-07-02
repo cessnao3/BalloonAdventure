@@ -87,6 +87,9 @@
     <ClCompile Include="src\sound_manager.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\menu_state_flow.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\gamelib\draw_object.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files\gamelib</Filter>
     </ClInclude>
     <ClInclude Include="src\sound_manager.h">
+      <Filter>Header Files\src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\menu_state_flow.h">
       <Filter>Header Files\src</Filter>
     </ClInclude>
   </ItemGroup>

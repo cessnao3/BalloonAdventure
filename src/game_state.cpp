@@ -1,10 +1,13 @@
 #include "game_state.h"
 
+#include <allegro5/allegro_primitives.h>
+
 GameState::GameState(ALLEGRO_DISPLAY* display)
 {
     // Define the draw state
     draw_state.draw_offset = Vector2();
     draw_state.display = display;
+    draw_state.input_manager = get_input_manager();
 
     // Set the balloon position
     balloon.set_position(
@@ -27,7 +30,9 @@ GameState::GameState(ALLEGRO_DISPLAY* display)
 
 bool GameState::init()
 {
-    return sound_manager.init();
+    return
+        sound_manager.init() &&
+        menu_state_flow.init(draw_state.display);
 }
 
 bool GameState::get_running() const
@@ -90,6 +95,12 @@ void GameState::draw()
     for (auto it = draw_objects.begin(); it != draw_objects.end(); ++it)
     {
         (*it)->draw(&draw_state);
+    }
+
+    // Draw the menu if needed
+    if (menu_state_flow.get_state() != MenuStateFlow::Location::NONE)
+    {
+        menu_state_flow.draw(&draw_state);
     }
 
     // Flip the screen

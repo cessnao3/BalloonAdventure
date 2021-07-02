@@ -112,6 +112,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,6 +132,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +152,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +172,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalModuleDependencies>
       </AdditionalModuleDependencies>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -195,6 +199,7 @@
     <ClCompile Include="src\balloon\weight.cpp" />
     <ClCompile Include="src\game_state.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\menu_state_flow.cpp" />
     <ClCompile Include="src\sound_manager.cpp" />
     <ClCompile Include="src\terrain.cpp" />
   </ItemGroup>
@@ -215,6 +220,7 @@
     <ClInclude Include="src\balloon\rope.h" />
     <ClInclude Include="src\balloon\weight.h" />
     <ClInclude Include="src\game_state.h" />
+    <ClInclude Include="src\menu_state_flow.h" />
     <ClInclude Include="src\sound_manager.h" />
     <ClInclude Include="src\terrain.h" />
     <ClInclude Include="src\world_state.h" />

@@ -14,6 +14,7 @@
 
 #include <terrain.h>
 #include <world_state.h>
+#include <menu_state_flow.h>
 
 #include <sound_manager.h>
 
@@ -81,6 +82,8 @@ private:
 
     DrawState draw_state;
     WorldState world_state;
+
+    MenuStateFlow menu_state_flow;
 
     Terrain terrain;
 
