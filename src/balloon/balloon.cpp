@@ -122,3 +122,8 @@ const Envelope& Balloon::get_envelope() const
 {
     return envelope;
 }
+
+const Gondola& Balloon::get_gondola() const
+{
+    return gondola;
+}

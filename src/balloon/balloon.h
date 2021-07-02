@@ -27,6 +27,8 @@ public:
 
     const Envelope& get_envelope() const;
 
+    const Gondola& get_gondola() const;
+
 protected:
     Gondola gondola;
     Envelope envelope;
