@@ -69,11 +69,25 @@ void MenuStateFlow::draw(const DrawState* state)
     switch (current_state)
     {
     case Location::MAIN:
-        if (state->input_manager->get_enter_pressed())
+        if (state->input_manager->get_key_rising_edge(ALLEGRO_KEY_ENTER))
         {
             current_state = Location::NONE;
         }
+        else if (state->input_manager->get_key_rising_edge(ALLEGRO_KEY_C))
+        {
+            current_state = Location::CREDITS;
+        }
+        else if (state->input_manager->get_key_rising_edge(ALLEGRO_KEY_H))
+        {
+            current_state = Location::HELP;
+        }
         break;
+    case Location::HELP:
+    case Location::CREDITS:
+        if (state->input_manager->get_key_rising_edge(ALLEGRO_KEY_B))
+        {
+            current_state = Location::MAIN;
+        }
     };
 
     ALLEGRO_BITMAP* selected_bitmap = nullptr;
