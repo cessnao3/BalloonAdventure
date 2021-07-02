@@ -85,7 +85,10 @@ bool SoundManager::init()
         sample_wind_noise,
         0.05);
 
-    al_set_audio_stream_playing(vec_streams.front(), true);
+    if (music_state)
+    {
+        al_set_audio_stream_playing(vec_streams.front(), true);
+    }
 
     return 
         sample_burner_init != nullptr &&
