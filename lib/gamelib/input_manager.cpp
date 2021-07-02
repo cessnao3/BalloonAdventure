@@ -10,16 +10,18 @@ InputManager::InputManager()
 void InputManager::set_key_down(const int keycode)
 {
     status_map.insert_or_assign(keycode, true);
+    rising_edge.insert_or_assign(keycode, true);
 }
 
 void InputManager::set_key_up(const int keycode)
 {
     status_map.insert_or_assign(keycode, false);
+    rising_edge.insert_or_assign(keycode, false);
 }
 
 bool InputManager::get_key_status(const int keycode) const
 {
-    auto value = status_map.find(keycode);
+    const auto value = status_map.find(keycode);
     if (value == status_map.end())
     {
         return false;
@@ -27,6 +29,24 @@ bool InputManager::get_key_status(const int keycode) const
     else
     {
         return value->second;
+    }
+}
+
+bool InputManager::get_key_rising_edge(const int keycode)
+{
+    const auto value = rising_edge.find(keycode);
+    if (value == rising_edge.end())
+    {
+        return false;
+    }
+    else
+    {
+        const bool val = value->second;
+        if (val)
+        {
+            rising_edge.insert_or_assign(keycode, false);
+        }
+        return val;
     }
 }
 

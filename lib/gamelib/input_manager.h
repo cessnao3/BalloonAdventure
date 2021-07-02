@@ -34,6 +34,15 @@ public:
     bool get_key_status(const int keycode) const;
 
     /**
+     * @brief determines if the current key has been pressed as a rising edge. Will reset
+     * so subsequent calls for the same keycode will be false until the next key_down event
+     * for the given key
+     * @param keycode the keycode to set
+     * @return true if the key is a new rising edge
+    */
+    bool get_key_rising_edge(const int keycode);
+
+    /**
      * @brief determines if the up direction is pressed
      * @return true if up is pressed
      */
@@ -65,6 +74,7 @@ public:
 
 protected:
     std::unordered_map<int, bool> status_map;
+    std::unordered_map<int, bool> rising_edge;
 };
 
 #endif // INPUT_MANAGER_H
