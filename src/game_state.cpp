@@ -52,6 +52,36 @@ SoundManager* GameState::get_sound_manager()
 
 void GameState::draw()
 {
+    // Update the window offset if needed
+    Vector2 diff_val = balloon.get_gondola().get_position() - draw_state.draw_offset;
+
+    const double display_width = al_get_display_width(draw_state.display);
+    const double display_height = al_get_display_height(draw_state.display);
+
+    const double lim_x_right = 0.8 * display_width;
+    const double lim_x_left = 0.2 * display_width;
+
+    const double lim_y_top = 0.4 * display_height;
+    const double lim_y_bot = 0.8 * display_height;
+
+    if (diff_val.x > lim_x_right)
+    {
+        draw_state.draw_offset.x += diff_val.x - lim_x_right;
+    }
+    else if (diff_val.x < lim_x_left)
+    {
+        draw_state.draw_offset.x += diff_val.x - lim_x_left;
+    }
+
+    if (diff_val.y < lim_y_top)
+    {
+        draw_state.draw_offset.y += diff_val.y - lim_y_top;
+    }
+    else if (diff_val.y > lim_y_bot)
+    {
+        draw_state.draw_offset.y += diff_val.y - lim_y_bot;
+    }
+
     // Define and set the background color
     const ALLEGRO_COLOR background_color = al_map_rgb(124, 199, 231);
     al_clear_to_color(background_color);
