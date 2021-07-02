@@ -17,6 +17,14 @@ public:
 
     void set_point_b(const Vector2& p);
 
+    void break_rope();
+
+    bool get_broken() const;
+
+    bool try_reattach_rope();
+
+    double get_init_length() const;
+
     virtual void draw(const DrawState* state) override;
 
     virtual void pre_step(const StepState* state) override;
@@ -24,6 +32,8 @@ public:
 protected:
     double spring_constant;
     double init_length;
+
+    bool broken;
 
     PhysicsObject* obj_a;
     PhysicsObject* obj_b;

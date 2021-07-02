@@ -1,5 +1,7 @@
 #include "balloon.h"
 
+#include <world_state.h>
+
 Balloon::Balloon() :
     rope_1(100.0),
     rope_2(100.0),
@@ -53,6 +55,34 @@ void Balloon::draw(const DrawState* state)
 
 void Balloon::pre_step(const StepState* state)
 {
+    // Update rope broken parameters
+    const WorldState* world_state = dynamic_cast<const WorldState*>(state);
+
+    if (world_state->input_manager->get_key_rising_edge(ALLEGRO_KEY_1))
+    {
+        if (rope_3.get_broken())
+        {
+            rope_3.try_reattach_rope();
+        }
+        else
+        {
+            rope_3.break_rope();
+        }
+    }
+
+    if (world_state->input_manager->get_key_rising_edge(ALLEGRO_KEY_2))
+    {
+        if (rope_4.get_broken())
+        {
+            rope_4.try_reattach_rope();
+        }
+        else
+        {
+            rope_4.break_rope();
+        }
+    }
+
+    // Setup/update the rope points
     rope_1.set_point_a(envelope.anchor_point_left());
     rope_1.set_point_b(gondola.get_top_left());
 
@@ -65,6 +95,7 @@ void Balloon::pre_step(const StepState* state)
     rope_4.set_point_a(gondola.get_bottom_right());
     rope_4.set_point_b(weight_2.get_position());
 
+    // Run each object pre-state
     for (auto it = objects.begin(); it != objects.end(); ++it)
     {
         (*it)->pre_step(state);

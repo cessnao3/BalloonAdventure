@@ -7,7 +7,8 @@
 
 Rope::Rope(const double spring_constant) :
     spring_constant(spring_constant),
-    init_length(-1.0)
+    init_length(-1.0),
+    broken(false)
 {
     obj_a = nullptr;
     obj_b = nullptr;
@@ -35,22 +36,55 @@ void Rope::set_point_b(const Vector2& p)
     point_b = p;
 }
 
+void Rope::break_rope()
+{
+    broken = true;
+}
+
+bool Rope::get_broken() const
+{
+    return broken;
+}
+
+double Rope::get_init_length() const
+{
+    return init_length;
+}
+
+bool Rope::try_reattach_rope()
+{
+    if (point_a.distance_to(point_b) < init_length)
+    {
+        broken = false;
+    }
+    return !broken;
+}
+
 void Rope::draw(const DrawState* state)
 {
     // Draw the line
-    al_draw_line(
-        static_cast<float>(point_a.x),
-        static_cast<float>(point_a.y),
-        static_cast<float>(point_b.x),
-        static_cast<float>(point_b.y),
-        al_map_rgb(0, 0, 0),
-        2.0f);
+    if (!broken)
+    {
+        al_draw_line(
+            static_cast<float>(point_a.x),
+            static_cast<float>(point_a.y),
+            static_cast<float>(point_b.x),
+            static_cast<float>(point_b.y),
+            al_map_rgb(0, 0, 0),
+            2.0f);
+    }
 }
 
 void Rope::pre_step(const StepState* state)
 {
     // Run the super state
     GameObject::pre_step(state);
+
+    // Skip computation and force adding if broken
+    if (broken)
+    {
+        return;
+    }
 
     // Update the initial length if required
     if (init_length < 0.0)
@@ -73,22 +107,7 @@ void Rope::pre_step(const StepState* state)
     // Obtain the velocity difference
     const double velocity_diff = (vel_b - vel_a).dot(force_dir);
 
-    // Add a damping force
-    const double damping_force = 0.01 * spring_constant * velocity_diff * 0.0;
-
-    // Define the total force
-    const double total_force = spring_force + damping_force;
-
     // Apply forces to the respective objects
-    obj_a->add_force_absolute(force_dir * total_force, offset_a);
-    obj_b->add_force_absolute(force_dir * -total_force, offset_b);
-
-    /*
-    self.point_a.obj.add_force(
-        force = rope_force_dir,
-        offset = self.point_a.offset())
-        self.point_b.obj.add_force(
-            force = rope_force_dir * -1.0,
-            offset = self.point_b.offset())
-    */
+    obj_a->add_force_absolute(force_dir * spring_force, offset_a);
+    obj_b->add_force_absolute(force_dir * -spring_force, offset_b);
 }
