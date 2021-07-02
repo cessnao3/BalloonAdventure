@@ -64,9 +64,9 @@ ALLEGRO_AUDIO_STREAM* SoundManager::load_audio_stream(const char* filename)
 
 bool SoundManager::init()
 {
-    load_audio_stream("music/gymnopedie_no_1.mp3");
-    load_audio_stream("music/gymnopedie_no_2.mp3");
-    load_audio_stream("music/gymnopedie_no_3.mp3");
+    load_audio_stream("music/gymnopedie_no_1.ogg");
+    load_audio_stream("music/gymnopedie_no_2.ogg");
+    load_audio_stream("music/gymnopedie_no_3.ogg");
 
     sample_burner_init = load_sample_data("sounds/burner_start.wav");
     sample_burner_loop = load_sample_data("sounds/burner_loop.wav");
@@ -85,7 +85,7 @@ bool SoundManager::init()
         sample_wind_noise,
         0.05);
 
-    if (music_state)
+    if (music_state && vec_streams.size() > 0)
     {
         al_set_audio_stream_playing(vec_streams.front(), true);
     }
@@ -179,7 +179,7 @@ void SoundManager::update_background()
         al_play_sample_instance(sample_wind_noise);
     }
 
-    if (music_state && !al_get_audio_stream_playing(vec_streams.front()))
+    if (music_state && vec_streams.size() > 0 && !al_get_audio_stream_playing(vec_streams.front()))
     {
         ALLEGRO_AUDIO_STREAM* stream = vec_streams.front();
         al_rewind_audio_stream(stream);
