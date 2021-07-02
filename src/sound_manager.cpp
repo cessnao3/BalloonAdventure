@@ -3,8 +3,11 @@
 SoundManager::SoundManager() :
     current_burner_state(BurnerState::OFF),
     current_valve_state(ValveState::CLOSED),
+    music_state(true),
     mixer(nullptr),
+    sample_burner_init(nullptr),
     sample_burner_loop(nullptr),
+    sample_burner_stop(nullptr),
     sample_valve_open(nullptr),
     sample_wind_noise(nullptr)
 {
@@ -141,6 +144,31 @@ void SoundManager::set_valve_state(const ValveState state)
     }
 }
 
+void SoundManager::set_music_state(const bool state)
+{
+    if (music_state != state)
+    {
+        ALLEGRO_AUDIO_STREAM* stream = vec_streams.front();
+
+        if (state)
+        {
+            al_set_audio_stream_playing(stream, true);
+        }
+        else
+        {
+            al_set_audio_stream_playing(stream, false);
+            al_rewind_audio_stream(stream);
+        }
+
+        music_state = state;
+    }
+}
+
+bool SoundManager::get_music_state() const
+{
+    return music_state;
+}
+
 void SoundManager::update_background()
 {
     if (!al_get_sample_instance_playing(sample_wind_noise))
@@ -148,7 +176,7 @@ void SoundManager::update_background()
         al_play_sample_instance(sample_wind_noise);
     }
 
-    if (!al_get_audio_stream_playing(vec_streams.front()))
+    if (music_state && !al_get_audio_stream_playing(vec_streams.front()))
     {
         ALLEGRO_AUDIO_STREAM* stream = vec_streams.front();
         al_rewind_audio_stream(stream);

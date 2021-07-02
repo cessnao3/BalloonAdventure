@@ -29,6 +29,10 @@ public:
 
     void set_valve_state(const ValveState state);
 
+    void set_music_state(const bool state);
+
+    bool get_music_state() const;
+
     void update_background();
 
     ALLEGRO_MIXER* get_mixer();
@@ -42,6 +46,8 @@ protected:
 protected:
     BurnerState current_burner_state;
     ValveState current_valve_state;
+
+    bool music_state;
 
     ALLEGRO_MIXER* mixer;
 
