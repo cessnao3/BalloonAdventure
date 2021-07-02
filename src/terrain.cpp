@@ -11,47 +11,79 @@
 Terrain::Terrain() :
     bitmap(nullptr)
 {
-    // Empty Constructor
+    // Initialize constants
+    base_height = 650.0;
+
+    spring_constant = 500.0;
+    damping_coefficient = 250.0;
+    friction_damping = 100.0;
+
+    base_amplitude = 20.0;
+    base_frequency = 0.01;
 }
 
 void Terrain::draw(const DrawState* state)
 {
+    // Extract the height and width
+    const int display_width = al_get_display_width(state->display);
+    const int display_height = al_get_display_height(state->display);
+
+    const double display_width_d = static_cast<double>(display_width);
+    const double display_height_d = static_cast<double>(display_height);
+
+    // Define the current draw offset difference
+    const Vector2 offset_diff = state->draw_offset - bitmap_offset;
+    const double tol_thresh = 0.95;
+    const bool x_requires_redraw = offset_diff.x < -tol_thresh * display_width || offset_diff.x > tol_thresh * display_width;
+    const bool y_requires_redraw = offset_diff.y < -tol_thresh * display_height || offset_diff.y > tol_thresh * display_height;
+
+    const bool redraw_bitmap = bitmap == nullptr || x_requires_redraw || y_requires_redraw;
+
     // Update the bitmap if needed
-    if (bitmap == nullptr)
+    if (redraw_bitmap)
     {
-        // Extract the height and width
-        const int display_width = al_get_display_width(state->display);
-        const int display_height = al_get_display_height(state->display);
+        // Create the bitmap if needed
+        if (bitmap == nullptr)
+        {
+            bitmap = al_create_bitmap(
+                display_width * 3,
+                display_height * 3);
+        }
 
         // Update the bitmap
         ALLEGRO_BITMAP* prev_target = al_get_target_bitmap();
-        bitmap = al_create_bitmap(
-            display_width,
-            display_height);
         al_set_target_bitmap(bitmap);
+
+        //al_clear_to_color(al_map_rgba(0, 0, 0, 0));
+
+        bitmap_offset = state->draw_offset;
 
         // Clear the resulting points
         terrain_points.clear();
 
+        const Vector2 draw_offset = Vector2(
+            -display_width_d,
+            -display_height_d);
+
         // Define points
-        const Vector2 display_bottom_left(
-            0.0,
-            static_cast<double>(display_height));
-        const Vector2 display_bottom_right(
-            static_cast<double>(display_width),
-            static_cast<double>(display_height));
+        const Vector2 display_bottom_left = Vector2(
+            -display_width_d,
+            2.0 * display_height_d) - draw_offset;
+        const Vector2 display_bottom_right = Vector2(
+            2.0 * display_width_d,
+            2.0 * display_height_d) - draw_offset;
 
         // Add the bottom-right surface
         terrain_points.add_point(display_bottom_right);
 
         // Iterate over each point to assign to the results
-        for (int i = display_width; i >= 0; --i)
+        for (int i = 2 * display_width; i >= -display_width; --i)
         {
             // Define the inner-X location
             terrain_points.add_point(
                 Vector2(
-                    i + state->draw_offset.x,
-                    elevation_at_x(i + state->draw_offset.x)) - state->draw_offset);
+                    i + bitmap_offset.x,
+                    elevation_at_x(i + state->draw_offset.x)) - bitmap_offset - draw_offset);
         }
 
         // Add the final point
@@ -73,8 +105,8 @@ void Terrain::draw(const DrawState* state)
     // Draw the bitmap
     al_draw_bitmap(
         bitmap,
-        0,
-        0,
+        bitmap_offset.x - state->draw_offset.x - display_width_d,
+        bitmap_offset.y - state->draw_offset.y - display_height_d,
         0);
 }
 

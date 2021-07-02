@@ -65,11 +65,14 @@ void Rope::draw(const DrawState* state)
     // Draw the line
     if (!broken)
     {
+        const Vector2 screen_a = point_a - state->draw_offset;
+        const Vector2 screen_b = point_b - state->draw_offset;
+
         al_draw_line(
-            static_cast<float>(point_a.x),
-            static_cast<float>(point_a.y),
-            static_cast<float>(point_b.x),
-            static_cast<float>(point_b.y),
+            static_cast<float>(screen_a.x),
+            static_cast<float>(screen_a.y),
+            static_cast<float>(screen_b.x),
+            static_cast<float>(screen_b.y),
             al_map_rgb(0, 0, 0),
             2.0f);
     }
@@ -103,9 +106,6 @@ void Rope::pre_step(const StepState* state)
     // Determine the velocity at each point
     const Vector2 vel_a = obj_a->get_velocity_at_absolute(point_a);
     const Vector2 vel_b = obj_b->get_velocity_at_absolute(point_b);
-
-    // Obtain the velocity difference
-    const double velocity_diff = (vel_b - vel_a).dot(force_dir);
 
     // Apply forces to the respective objects
     obj_a->add_force_absolute(force_dir * spring_force, offset_a);

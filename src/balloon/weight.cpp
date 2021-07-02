@@ -16,9 +16,11 @@ Weight::Weight() :
 
 void Weight::draw(const DrawState* state)
 {
+    const Vector2 screen_position = position - state->draw_offset;
+
     al_draw_filled_circle(
-        static_cast<float>(position.x),
-        static_cast<float>(position.y),
+        static_cast<float>(screen_position.x),
+        static_cast<float>(screen_position.y),
         static_cast<float>(radius),
         al_map_rgb(123, 79, 44));
 }

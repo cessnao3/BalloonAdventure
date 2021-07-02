@@ -91,8 +91,8 @@ void Gondola::draw(const DrawState* state)
         bitmap,
         static_cast<float>(width) / 2.0f,
         static_cast<float>(height) / 2.0f,
-        static_cast<float>(position.x),
-        static_cast<float>(position.y),
+        static_cast<float>(position.x - state->draw_offset.x),
+        static_cast<float>(position.y - state->draw_offset.y),
         static_cast<float>(rotation),
         0);
 }

@@ -36,10 +36,13 @@ Vector2 Envelope::anchor_point_right() const
 
 void Envelope::draw(const DrawState* state)
 {
+    // Define the screen position
+    const Vector2 screen_pos = position - state->draw_offset;
+
     // Draw the envelope
     al_draw_filled_circle(
-        static_cast<float>(position.x),
-        static_cast<float>(position.y),
+        static_cast<float>(screen_pos.x),
+        static_cast<float>(screen_pos.y),
         get_radius(),
         al_map_rgb(
             static_cast<unsigned char>(interpolate_value(200.0, 200.0)),
@@ -47,8 +50,8 @@ void Envelope::draw(const DrawState* state)
             static_cast<unsigned char>(interpolate_value(100.0, 0.0))));
 
     // Define the anchor points
-    const Vector2 a_left = anchor_point_left();
-    const Vector2 a_right = anchor_point_right();
+    const Vector2 a_left = anchor_point_left() - state->draw_offset;
+    const Vector2 a_right = anchor_point_right() - state->draw_offset;
 
     // Draw the anchor points
     al_draw_filled_circle(
@@ -102,14 +105,15 @@ void Envelope::pre_step(const StepState* state)
     current_temperature = std::min(std::max(0.0, current_temperature), 1.0);
 
     // Setup lateral forces
+    const double lat_force_max = 200.0;
     double lat_force = 0.0;
     if (state->input_manager->get_dir_right())
     {
-        lat_force += 200.0;
+        lat_force += lat_force_max;
     }
     if (state->input_manager->get_dir_left())
     {
-        lat_force += -200.0;
+        lat_force -= lat_force_max;
     }
 
     // Apply forces

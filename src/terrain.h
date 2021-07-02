@@ -28,17 +28,18 @@ public:
     ~Terrain();
 
 protected:
-    double base_height = 650.0;
+    double base_height;
 
-    double spring_constant = 500.0;
-    double damping_coefficient = 250.0;
-    double friction_damping = 100.0;
+    double spring_constant;
+    double damping_coefficient;
+    double friction_damping;
 
-    double base_amplitude = 20.0;
-    double base_frequency = 0.01;
+    double base_amplitude;
+    double base_frequency;
 
 private:
     Polygon terrain_points;
+    Vector2 bitmap_offset;
     ALLEGRO_BITMAP* bitmap;
 };
 
