@@ -27,5 +27,8 @@ void AeroObject::pre_step(const StepState* state)
     }
     
     // Apply rotational drag
-    moments -= 0.5 * rotational_vel * rotational_vel * cd_rotation;
+    if (std::abs(rotational_vel) > 1e-6)
+    {
+        moments -= 0.5 * rotational_vel * std::abs(rotational_vel) * cd_rotation;
+    }
 }
