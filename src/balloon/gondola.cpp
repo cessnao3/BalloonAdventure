@@ -9,7 +9,7 @@
 #include <world_state.h>
 
 Gondola::Gondola() :
-    AeroObject(0.1, 0.5)
+    AeroObject(0.1, 50.0)
 {
     mass = 50.0;
     inertia = 50.0;
