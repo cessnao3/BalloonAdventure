@@ -1,7 +1,8 @@
 #ifndef GIO_DRAW_OBJECT_H
 #define GIO_DRAW_OBJECT_H
 
-#include "vector2.h"
+#include <gamelib/vector2.h>`
+#include <gamelib/input_manager.h>
 
 #include <allegro5/display.h>
 
@@ -12,6 +13,7 @@ struct DrawState
 {
     Vector2 draw_offset = Vector2();
     ALLEGRO_DISPLAY* display = nullptr;
+    InputManager* input_manager = nullptr;
 };
 
 /**

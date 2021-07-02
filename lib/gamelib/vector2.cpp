@@ -1,8 +1,8 @@
-#include "vector2.h"
+#include <gamelib/vector2.h>
 
 #include <cmath>
 
-#include "constants.h"
+#include <gamelib/constants.h>
 
 Vector2::Vector2() :
         x(0.0),

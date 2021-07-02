@@ -1,4 +1,4 @@
-#include "aero_object.h"
+#include <gamelib/aero_object.h>
 
 #include <cmath>
 

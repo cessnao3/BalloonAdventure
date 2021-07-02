@@ -1,9 +1,9 @@
 #ifndef GIO_PHYSICS_OBJECT_H
 #define GIO_PHYSICS_OBJECT_H
 
-#include "game_object.h"
+#include <gamelib/game_object.h>
 
-#include "vector2.h"
+#include <gamelib/vector2.h>
 
 
 /**

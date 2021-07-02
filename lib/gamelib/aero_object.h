@@ -1,7 +1,7 @@
 #ifndef GIO_AERO_OBJECT_H
 #define GIO_AERO_OBJECT_H
 
-#include "physics_object.h"
+#include <gamelib/physics_object.h>
 
 /**
  * @brief Provides basic aerodynamics forces for a physics object

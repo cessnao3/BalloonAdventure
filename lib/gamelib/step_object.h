@@ -1,7 +1,7 @@
 #ifndef GIO_STEP_OBJECT_H
 #define GIO_STEP_OBJECT_H
 
-#include "input_manager.h"
+#include <gamelib/input_manager.h>
 
 /**
  * @brief Provides the basic state information for a given step

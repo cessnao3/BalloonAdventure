@@ -1,4 +1,4 @@
-#include "step_object.h"
+#include <gamelib/step_object.h>
 
 StepState::StepState() :
     time_step(0.0),

@@ -1,4 +1,4 @@
-#include "draw_object.h"
+#include <gamelib/draw_object.h>
 
 void DrawObject::draw(const DrawState*)
 {

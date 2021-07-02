@@ -4,58 +4,28 @@
 #include <cstddef>
 #include <vector>
 
-#include "vector2.h"
+#include <gamelib/vector2.h>
 
 class Polygon
 {
 public:
-    Polygon()
-    {
-        // Empty Constructor
-    }
+    Polygon();
 
-    void add_point(const double x, const double y)
-    {
-        points.push_back(Vector2(x, y));
-    }
+    void add_point(
+        const double x,
+        const double y);
 
-    void add_point(const Vector2& point)
-    {
-        points.push_back(point);
-    }
+    void add_point(const Vector2& point);
 
-    void clear()
-    {
-        points.clear();
-    }
+    void clear();
 
-    size_t size() const
-    {
-        return points.size();
-    }
+    size_t size() const;
 
-    const std::vector<Vector2>& get_points() const
-    {
-        return points;
-    }
+    const std::vector<Vector2>& get_points() const;
 
-    std::vector<Vector2>& get_points()
-    {
-        return points;
-    }
+    std::vector<Vector2>& get_points();
 
-    std::vector<float> get_allegro_points() const
-    {
-        std::vector<float> al_points;
-
-        for (auto it = points.begin(); it != points.end(); ++it)
-        {
-            al_points.push_back(static_cast<float>(it->x));
-            al_points.push_back(static_cast<float>(it->y));
-        }
-
-        return al_points;
-    }
+    std::vector<float> get_allegro_points() const;
 
 protected:
     std::vector<Vector2> points;

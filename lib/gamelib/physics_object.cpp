@@ -1,6 +1,6 @@
-#include "physics_object.h"
+#include <gamelib/physics_object.h>
 
-#include "constants.h"
+#include <gamelib/constants.h>
 
 #include <cmath>
 

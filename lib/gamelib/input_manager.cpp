@@ -1,4 +1,4 @@
-#include "input_manager.h"
+#include <gamelib/input_manager.h>
 
 #include <allegro5/keycodes.h>
 
