@@ -65,6 +65,12 @@ void GameState::draw()
     // Flip the screen
     al_flip_display();
 
+    // Check for a button press to stop any music
+    if (input_manager.get_key_rising_edge(ALLEGRO_KEY_M))
+    {
+        sound_manager.set_music_state(!sound_manager.get_music_state());
+    }
+
     // Update sounds
     sound_manager.set_burner_state(balloon.get_envelope().get_burner_on() ? SoundManager::BurnerState::ON : SoundManager::BurnerState::OFF);
     sound_manager.set_valve_state(balloon.get_envelope().get_valve_open() ? SoundManager::ValveState::OPEN : SoundManager::ValveState::CLOSED);
