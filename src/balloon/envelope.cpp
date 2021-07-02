@@ -4,7 +4,9 @@
 #include <allegro5/allegro_primitives.h>
 
 Envelope::Envelope() :
-    AeroObject(0.5, 0.3)
+    AeroObject(0.5, 100.0),
+    burner_on(false),
+    valve_open(false)
 {
     // Define the radius
     radius = 60.0;
