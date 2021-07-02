@@ -68,11 +68,11 @@ bool SoundManager::init()
     load_audio_stream("music/gymnopedie_no_2.ogg");
     load_audio_stream("music/gymnopedie_no_3.ogg");
 
-    sample_burner_init = load_sample_data("sounds/burner_start.wav");
-    sample_burner_loop = load_sample_data("sounds/burner_loop.wav");
-    sample_burner_stop = load_sample_data("sounds/burner_end.wav");
-    sample_valve_open = load_sample_data("sounds/hiss.wav");
-    sample_wind_noise = load_sample_data("sounds/wind.wav");
+    sample_burner_init = load_sample_data("sounds/burner_start.ogg");
+    sample_burner_loop = load_sample_data("sounds/burner_loop.ogg");
+    sample_burner_stop = load_sample_data("sounds/burner_end.ogg");
+    sample_valve_open = load_sample_data("sounds/hiss.ogg");
+    sample_wind_noise = load_sample_data("sounds/wind.ogg");
 
     al_set_sample_instance_playmode(
         sample_burner_loop,
