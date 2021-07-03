@@ -6,6 +6,9 @@
 #include <allegro5/bitmap.h>
 #include <allegro5/allegro_font.h>
 
+#include <vector>
+#include <string>
+
 class MenuStateFlow : DrawObject
 {
 public:
@@ -20,9 +23,11 @@ public:
 public:
     MenuStateFlow();
 
-    bool init(ALLEGRO_DISPLAY* display);
+    bool init(const DrawState* state);
 
     virtual void draw(const DrawState* state);
+
+    virtual void invalidate_draw(const DrawState* state) override;
 
     Location get_state() const;
 
@@ -33,20 +38,21 @@ public:
     ~MenuStateFlow();
 
 protected:
-    ALLEGRO_BITMAP* create_default_bitmap(ALLEGRO_DISPLAY* display) const;
+    bool draw_default_bitmap(
+        const DrawState* state,
+        ALLEGRO_FONT* font,
+        const std::vector<std::string>& lines);
 
-    bool init_main(ALLEGRO_DISPLAY* display);
+    bool draw_main(const DrawState* state);
 
-    bool init_help(ALLEGRO_DISPLAY* display);
+    bool draw_help(const DrawState* state);
 
-    bool init_credits(ALLEGRO_DISPLAY* display);
+    bool draw_credits(const DrawState* state);
 
 protected:
     Location current_state;
 
-    ALLEGRO_BITMAP* bmp_main;
-    ALLEGRO_BITMAP* bmp_help;
-    ALLEGRO_BITMAP* bmp_credits;
+    ALLEGRO_BITMAP* bitmap_stored;
 
     ALLEGRO_FONT* font_title;
     ALLEGRO_FONT* font_text;
