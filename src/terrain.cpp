@@ -25,8 +25,8 @@ Terrain::Terrain() :
 void Terrain::draw(const DrawState* state)
 {
     // Extract the height and width
-    const int display_width = al_get_display_width(state->display);
-    const int display_height = al_get_display_height(state->display);
+    const int display_width = static_cast<int>(state->screen_w);
+    const int display_height = static_cast<int>(state->screen_h);
 
     const double display_width_d = static_cast<double>(display_width);
     const double display_height_d = static_cast<double>(display_height);
@@ -108,6 +108,15 @@ void Terrain::draw(const DrawState* state)
         bitmap_offset.x - state->draw_offset.x - display_width_d,
         bitmap_offset.y - state->draw_offset.y - display_height_d,
         0);
+}
+
+void Terrain::invalidate_draw(const DrawState* state)
+{
+    if (bitmap != nullptr)
+    {
+        al_destroy_bitmap(bitmap);
+        bitmap = nullptr;
+    }
 }
 
 double Terrain::elevation_at_x(const double x)

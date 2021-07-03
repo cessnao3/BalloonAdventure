@@ -15,6 +15,8 @@ public:
 
     virtual void draw(const DrawState* state) override;
 
+    virtual void invalidate_draw(const DrawState* state) override;
+
     double elevation_at_x(const double x);
 
     Vector2 surface_normal_at_x(const double x);
