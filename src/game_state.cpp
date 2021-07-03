@@ -4,17 +4,19 @@
 
 #include <allegro5/allegro_audio.h>
 
-GameState::GameState(ALLEGRO_DISPLAY* display)
+GameState::GameState()
 {
     // Define the draw state
     draw_state.draw_offset = Vector2();
-    draw_state.display = display;
+    draw_state.display = nullptr;
     draw_state.input_manager = get_input_manager();
+    draw_state.screen_w = 1280;
+    draw_state.screen_h = 720;
 
     // Set the balloon position
     balloon.set_position(
-        al_get_display_width(display) / 2.0,
-        al_get_display_height(display) / 2.0);
+        static_cast<double>(draw_state.screen_w) / 2.0,
+        static_cast<double>(draw_state.screen_h) / 2.0);
 
     // Define the step state
     world_state.input_manager = &input_manager_autopilot;
@@ -34,7 +36,37 @@ bool GameState::init()
 {
     return
         sound_manager.init() &&
-        menu_state_flow.init(draw_state.display);
+        menu_state_flow.init(&draw_state);
+}
+
+void GameState::set_display(ALLEGRO_DISPLAY* display)
+{
+    draw_state.display = display;
+    for (auto it = draw_objects.begin(); it != draw_objects.end(); ++it)
+    {
+        (*it)->invalidate_draw(&draw_state);
+    }
+    menu_state_flow.invalidate_draw(&draw_state);
+}
+
+size_t GameState::get_screen_width() const
+{
+    return draw_state.screen_w;
+}
+
+size_t GameState::get_screen_height() const
+{
+    return draw_state.screen_h;
+}
+
+void GameState::set_screen_size(
+    const size_t width,
+    const size_t height)
+{
+    draw_state.screen_w = width;
+    draw_state.screen_h = height;
+
+    set_display(draw_state.display);
 }
 
 bool GameState::get_running() const

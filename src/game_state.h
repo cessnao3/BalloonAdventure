@@ -27,13 +27,40 @@ public:
     /**
      * @brief Constructs the game state
      */
-    GameState(ALLEGRO_DISPLAY* display);
+    GameState();
 
     /**
      * @brief Initializes any non-constructor init items
      * @return true if successfully initialized
      */
     bool init();
+
+    /**
+     * @brief sets the stored display reference to draw with
+     * @param display sets the display
+     */
+    void set_display(ALLEGRO_DISPLAY* display);
+
+    /**
+     * @brief provides the internally-used screen width
+     * @return screen width
+     */
+    size_t get_screen_width() const;
+
+    /**
+     * @brief provides the internally-used screen height
+     * @return screen height
+     */
+    size_t get_screen_height() const;
+
+    /**
+     * @brief Sets the screen size to a new value
+     * @param width the new width to set
+     * @param height the new height to set
+     */
+    void set_screen_size(
+        const size_t width,
+        const size_t height);
 
 public:
     /**
