@@ -248,6 +248,16 @@ MenuStateFlow::Location MenuStateFlow::get_state() const
     return current_state;
 }
 
+bool MenuStateFlow::in_menu() const
+{
+    return current_state != Location::NONE;
+}
+
+void MenuStateFlow::enter_menu()
+{
+    current_state = Location::MAIN;
+}
+
 static void try_destroy_bitmap(ALLEGRO_BITMAP** bmp)
 {
     if (bmp != nullptr && *bmp != nullptr)

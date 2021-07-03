@@ -15,7 +15,7 @@ GameState::GameState(ALLEGRO_DISPLAY* display)
         al_get_display_height(display) / 2.0);
 
     // Define the step state
-    world_state.input_manager = get_input_manager();
+    world_state.input_manager = &input_manager_autopilot;
     world_state.time_step = 0.0001;
     world_state.gravity = Vector2(0.0, 10.0);
     world_state.terrain = &terrain;
@@ -98,7 +98,7 @@ void GameState::draw()
     }
 
     // Draw the menu if needed
-    if (menu_state_flow.get_state() != MenuStateFlow::Location::NONE)
+    if (menu_state_flow.in_menu())
     {
         menu_state_flow.draw(&draw_state);
     }
@@ -115,13 +115,13 @@ void GameState::draw()
     // Check for exit buttons
     if (input_manager.get_key_rising_edge(ALLEGRO_KEY_ESCAPE))
     {
-        if (menu_state_flow.get_state() == MenuStateFlow::Location::NONE)
+        if (menu_state_flow.in_menu())
         {
-
+            set_quit();
         }
         else
         {
-            set_quit();
+            menu_state_flow.enter_menu();
         }
     }
 
@@ -133,8 +133,56 @@ void GameState::draw()
 
 void GameState::step(const double dt)
 {
-    // Run all steps
+    // Determine the number of incremental steps to run
     const size_t num_steps = static_cast<size_t>(dt / world_state.time_step);
+
+    // Update the autopilot if needed
+    if (menu_state_flow.in_menu())
+    {
+        // Determine position state parameters
+        const Vector2 gondola_pos = balloon.get_gondola().get_position();
+        const double height_agl = terrain.elevation_at_x(gondola_pos.x) - gondola_pos.y;
+        const double temp_percent = balloon.get_envelope().get_temp_ratio();
+
+        // Perform bang-bang control
+        if (height_agl < 290)
+        {
+            input_manager_autopilot.set_key_up(ALLEGRO_KEY_DOWN);
+
+            if (temp_percent < 0.9)
+            {
+                input_manager_autopilot.set_key_down(ALLEGRO_KEY_UP);
+            }
+            else if (temp_percent > 0.95)
+            {
+                input_manager_autopilot.set_key_up(ALLEGRO_KEY_UP);
+            }
+        }
+        else if (height_agl > 310)
+        {
+            if (temp_percent < 0.6)
+            {
+                input_manager_autopilot.set_key_up(ALLEGRO_KEY_DOWN);
+            }
+            else if (temp_percent > 0.8)
+            {
+                input_manager_autopilot.set_key_down(ALLEGRO_KEY_DOWN);
+            }
+
+            if (temp_percent < 0.5)
+            {
+                input_manager_autopilot.set_key_down(ALLEGRO_KEY_UP);
+            }
+            else if (temp_percent > 0.75)
+            {
+                input_manager_autopilot.set_key_up(ALLEGRO_KEY_UP);
+            }
+        }
+    }
+    else
+    {
+        world_state.input_manager = get_input_manager();
+    }
 
     // Run through the timestep to perform the integration in smaller timesteps
     // to help maintain system stability

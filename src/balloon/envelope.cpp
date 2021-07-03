@@ -16,7 +16,7 @@ Envelope::Envelope() :
     inertia = 5.0;
 
     // Setup the initial temperature
-    current_temperature = 0.5;
+    current_temperature_ratio = 0.5;
 }
 
 double Envelope::get_radius() const
@@ -68,7 +68,7 @@ void Envelope::draw(const DrawState* state)
 
 double Envelope::interpolate_value(const double min_val, const double max_val) const
 {
-    return min_val * (1.0 - current_temperature) + max_val * current_temperature;
+    return min_val * (1.0 - current_temperature_ratio) + max_val * current_temperature_ratio;
 }
 
 void Envelope::pre_step(const StepState* state)
@@ -77,10 +77,10 @@ void Envelope::pre_step(const StepState* state)
     AeroObject::pre_step(state);
 
     // Setup lift
-    double vert_force = interpolate_value(300.0, 1100.0);
+    double vert_force = interpolate_value(300.0, 1300.0);
     if (state->input_manager->get_dir_up())
     {
-        current_temperature += 0.1 * state->time_step;
+        current_temperature_ratio += 0.1 * state->time_step;
         burner_on = true;
     }
     else
@@ -90,7 +90,7 @@ void Envelope::pre_step(const StepState* state)
 
     if (state->input_manager->get_dir_down())
     {
-        current_temperature -= 0.1 * state->time_step;
+        current_temperature_ratio -= 0.1 * state->time_step;
         valve_open = true;
     }
     else
@@ -99,10 +99,10 @@ void Envelope::pre_step(const StepState* state)
     }
 
     // Decay the current temperature
-    current_temperature -= 0.02 * current_temperature * state->time_step;
+    current_temperature_ratio -= 0.02 * current_temperature_ratio * state->time_step;
 
     // Limit the current temperature value
-    current_temperature = std::min(std::max(0.0, current_temperature), 1.0);
+    current_temperature_ratio = std::min(std::max(0.0, current_temperature_ratio), 1.0);
 
     // Setup lateral forces
     const double lat_force_max = 200.0;
@@ -128,6 +128,11 @@ bool Envelope::get_valve_open() const
 bool Envelope::get_burner_on() const
 {
     return burner_on;
+}
+
+double Envelope::get_temp_ratio() const
+{
+    return current_temperature_ratio;
 }
 
 Envelope::~Envelope()

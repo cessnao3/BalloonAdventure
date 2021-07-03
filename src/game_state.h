@@ -77,6 +77,7 @@ private:
     bool running = true;
 
     InputManager input_manager;
+    InputManager input_manager_autopilot;
 
     SoundManager sound_manager;
 

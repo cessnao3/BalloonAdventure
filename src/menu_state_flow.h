@@ -26,6 +26,10 @@ public:
 
     Location get_state() const;
 
+    bool in_menu() const;
+
+    void enter_menu();
+
     ~MenuStateFlow();
 
 protected:

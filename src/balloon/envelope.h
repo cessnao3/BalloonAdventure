@@ -27,12 +27,14 @@ public:
 
     bool get_burner_on() const;
 
+    double get_temp_ratio() const;
+
     ~Envelope();
 
 protected:
     double radius;
 
-    double current_temperature;
+    double current_temperature_ratio;
 
     bool burner_on;
     bool valve_open;
