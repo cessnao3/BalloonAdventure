@@ -35,6 +35,8 @@ public:
 
     void update_background();
 
+    void set_sound_gain(const double gain);
+
     ALLEGRO_MIXER* get_mixer();
 
     ~SoundManager();
@@ -49,7 +51,10 @@ protected:
 
     bool music_state;
 
-    ALLEGRO_MIXER* mixer;
+    ALLEGRO_MIXER* mixer_combined;
+
+    ALLEGRO_MIXER* mixer_sound;
+    ALLEGRO_MIXER* mixer_music;
 
     std::vector<ALLEGRO_SAMPLE*> vec_sample_data;
     std::vector<ALLEGRO_SAMPLE_INSTANCE*> vec_sample_instances;

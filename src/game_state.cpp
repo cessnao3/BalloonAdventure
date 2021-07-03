@@ -2,6 +2,8 @@
 
 #include <allegro5/allegro_primitives.h>
 
+#include <allegro5/allegro_audio.h>
+
 GameState::GameState(ALLEGRO_DISPLAY* display)
 {
     // Define the draw state
@@ -57,6 +59,9 @@ SoundManager* GameState::get_sound_manager()
 
 void GameState::draw()
 {
+    // Update the sound volume based on menu state
+    sound_manager.set_sound_gain(menu_state_flow.in_menu() ? 0.25 : 1.0);
+
     // Update the window offset if needed
     Vector2 diff_val = balloon.get_gondola().get_position() - draw_state.draw_offset;
 

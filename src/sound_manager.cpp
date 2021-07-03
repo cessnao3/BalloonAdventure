@@ -4,7 +4,9 @@ SoundManager::SoundManager() :
     current_burner_state(BurnerState::OFF),
     current_valve_state(ValveState::CLOSED),
     music_state(true),
-    mixer(nullptr),
+    mixer_combined(nullptr),
+    mixer_sound(nullptr),
+    mixer_music(nullptr),
     sample_burner_init(nullptr),
     sample_burner_loop(nullptr),
     sample_burner_stop(nullptr),
@@ -12,10 +14,26 @@ SoundManager::SoundManager() :
     sample_wind_noise(nullptr)
 {
     // Create a new mixer
-    mixer = al_create_mixer(
+    mixer_combined = al_create_mixer(
         44100,
         ALLEGRO_AUDIO_DEPTH_FLOAT32,
         ALLEGRO_CHANNEL_CONF_2);
+    mixer_sound = al_create_mixer(
+        44100,
+        ALLEGRO_AUDIO_DEPTH_FLOAT32,
+        ALLEGRO_CHANNEL_CONF_2);
+    mixer_music = al_create_mixer(
+        44100,
+        ALLEGRO_AUDIO_DEPTH_FLOAT32,
+        ALLEGRO_CHANNEL_CONF_2);
+
+    // Attach mixers
+    al_attach_mixer_to_mixer(
+        mixer_sound,
+        mixer_combined);
+    al_attach_mixer_to_mixer(
+        mixer_music,
+        mixer_combined);
 }
 
 ALLEGRO_SAMPLE_INSTANCE* SoundManager::load_sample_data(const char* filename)
@@ -41,7 +59,7 @@ ALLEGRO_SAMPLE_INSTANCE* SoundManager::load_sample_data(const char* filename)
     vec_sample_instances.push_back(sample);
 
     // Attempt to attach to the mixer
-    if (!al_attach_sample_instance_to_mixer(sample, mixer))
+    if (!al_attach_sample_instance_to_mixer(sample, mixer_sound))
     {
         return nullptr;
     }
@@ -57,7 +75,7 @@ ALLEGRO_AUDIO_STREAM* SoundManager::load_audio_stream(const char* filename)
     {
         vec_streams.push_back(stream);
         al_set_audio_stream_playing(stream, false);
-        al_attach_audio_stream_to_mixer(stream, mixer);
+        al_attach_audio_stream_to_mixer(stream, mixer_music);
     }
     return stream;
 }
@@ -103,7 +121,7 @@ bool SoundManager::init()
 
 ALLEGRO_MIXER* SoundManager::get_mixer()
 {
-    return mixer;
+    return mixer_combined;
 }
 
 void SoundManager::set_burner_state(const BurnerState state)
@@ -193,6 +211,13 @@ void SoundManager::update_background()
     }
 }
 
+void SoundManager::set_sound_gain(const double gain)
+{
+    al_set_mixer_gain(
+        mixer_sound,
+        static_cast<float>(gain));
+}
+
 SoundManager::~SoundManager()
 {
     // Clear all referenced items
@@ -232,5 +257,7 @@ SoundManager::~SoundManager()
     }
 
     // Destroy the mixer
-    al_destroy_mixer(mixer);
+    al_destroy_mixer(mixer_combined);
+    al_destroy_mixer(mixer_sound);
+    al_destroy_mixer(mixer_music);
 }
