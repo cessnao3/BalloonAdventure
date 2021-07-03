@@ -66,12 +66,6 @@ public:
      */
     bool get_dir_right() const;
 
-    /**
-     * @brief determines if the enter action is pressed
-     * @return true if the enter action is pressed
-     */
-    bool get_enter_pressed() const;
-
 protected:
     std::unordered_map<int, bool> status_map;
     std::unordered_map<int, bool> rising_edge;

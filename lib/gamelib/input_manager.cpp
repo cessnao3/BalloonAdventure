@@ -69,8 +69,3 @@ bool InputManager::get_dir_right() const
 {
     return get_key_status(ALLEGRO_KEY_RIGHT) || get_key_status(ALLEGRO_KEY_D);
 }
-
-bool InputManager::get_enter_pressed() const
-{
-    return get_key_status(ALLEGRO_KEY_ENTER);
-}

@@ -112,6 +112,19 @@ void GameState::draw()
         sound_manager.set_music_state(!sound_manager.get_music_state());
     }
 
+    // Check for exit buttons
+    if (input_manager.get_key_rising_edge(ALLEGRO_KEY_ESCAPE))
+    {
+        if (menu_state_flow.get_state() == MenuStateFlow::Location::NONE)
+        {
+
+        }
+        else
+        {
+            set_quit();
+        }
+    }
+
     // Update sounds
     sound_manager.set_burner_state(balloon.get_envelope().get_burner_on() ? SoundManager::BurnerState::ON : SoundManager::BurnerState::OFF);
     sound_manager.set_valve_state(balloon.get_envelope().get_valve_open() ? SoundManager::ValveState::OPEN : SoundManager::ValveState::CLOSED);

@@ -4,6 +4,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 #include <game_state.h>
 
@@ -39,6 +41,18 @@ int main()
     if (!al_init_acodec_addon())
     {
         std::cerr << "Unable to init Allegro audio codec addon" << std::endl;
+        return 1;
+    }
+
+    if (!al_init_font_addon())
+    {
+        std::cerr << "Unable to init Allegro font addon" << std::endl;
+        return 1;
+    }
+
+    if (!al_init_ttf_addon())
+    {
+        std::cerr << "Unable to init Allegro TTF addon" << std::endl;
         return 1;
     }
 
@@ -125,12 +139,6 @@ int main()
                 {
                     // Run frame step
                     state.draw();
-
-                    // Check for a quit event
-                    if (state.get_input_manager()->get_key_status(ALLEGRO_KEY_ESCAPE))
-                    {
-                        state.set_quit();
-                    }
                 }
                 break;
             case ALLEGRO_EVENT_KEY_DOWN:
