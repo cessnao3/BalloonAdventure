@@ -84,6 +84,9 @@ bool SoundManager::init()
     al_set_sample_instance_gain(
         sample_wind_noise,
         0.05);
+    al_set_sample_instance_gain(
+        sample_valve_open,
+        0.25);
 
     if (music_state && vec_streams.size() > 0)
     {
