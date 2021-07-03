@@ -46,6 +46,9 @@ protected:
     ALLEGRO_AUDIO_STREAM* load_audio_stream(const char* filename);
 
 protected:
+    bool inited;
+    bool init_success;
+
     BurnerState current_burner_state;
     ValveState current_valve_state;
 

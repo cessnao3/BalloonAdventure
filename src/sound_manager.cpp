@@ -1,9 +1,11 @@
 #include "sound_manager.h"
 
 SoundManager::SoundManager() :
+    inited(false),
+    init_success(false),
     current_burner_state(BurnerState::OFF),
     current_valve_state(ValveState::CLOSED),
-    music_state(true),
+    music_state(false),
     mixer_combined(nullptr),
     mixer_sound(nullptr),
     mixer_music(nullptr),
@@ -82,16 +84,25 @@ ALLEGRO_AUDIO_STREAM* SoundManager::load_audio_stream(const char* filename)
 
 bool SoundManager::init()
 {
+    // Mark as initialized
+    if (inited)
+    {
+        return init_success;
+    }
+
+    // Load Music
     load_audio_stream("music/gymnopedie_no_1.ogg");
     load_audio_stream("music/gymnopedie_no_2.ogg");
     load_audio_stream("music/gymnopedie_no_3.ogg");
 
+    // Read in samples
     sample_burner_init = load_sample_data("sounds/burner_start.ogg");
     sample_burner_loop = load_sample_data("sounds/burner_loop.ogg");
     sample_burner_stop = load_sample_data("sounds/burner_end.ogg");
     sample_valve_open = load_sample_data("sounds/hiss.ogg");
     sample_wind_noise = load_sample_data("sounds/wind.ogg");
 
+    // Set instance parameters
     al_set_sample_instance_playmode(
         sample_burner_loop,
         ALLEGRO_PLAYMODE_LOOP);
@@ -99,6 +110,7 @@ bool SoundManager::init()
         sample_wind_noise,
         ALLEGRO_PLAYMODE_LOOP);
 
+    // Set volumes
     al_set_sample_instance_gain(
         sample_wind_noise,
         0.05);
@@ -106,17 +118,25 @@ bool SoundManager::init()
         sample_valve_open,
         0.25);
 
+    // Setup the initial music playing state
     if (music_state && vec_streams.size() > 0)
     {
         al_set_audio_stream_playing(vec_streams.front(), true);
     }
 
-    return 
+    // Define if this has been initialized
+    init_success =
         sample_burner_init != nullptr &&
         sample_burner_loop != nullptr &&
         sample_burner_stop != nullptr &&
         sample_valve_open != nullptr &&
         sample_wind_noise != nullptr;
+
+    // Mark as initialized
+    inited = true;
+
+    // Return initialized
+    return init_success;
 }
 
 ALLEGRO_MIXER* SoundManager::get_mixer()
@@ -220,13 +240,6 @@ void SoundManager::set_sound_gain(const double gain)
 
 SoundManager::~SoundManager()
 {
-    // Clear all referenced items
-    sample_burner_loop = nullptr;
-    sample_valve_open = nullptr;
-    sample_wind_noise = nullptr;
-    sample_burner_init = nullptr;
-    sample_burner_stop = nullptr;
-
     // Detach and destory all sample instances
     for (auto it = vec_sample_instances.begin(); it != vec_sample_instances.end(); ++it)
     {
@@ -238,6 +251,14 @@ SoundManager::~SoundManager()
 
     vec_sample_instances.clear();
 
+    // Clear all referenced items
+    sample_burner_loop = nullptr;
+    sample_valve_open = nullptr;
+    sample_wind_noise = nullptr;
+    sample_burner_init = nullptr;
+    sample_burner_stop = nullptr;
+
+    // Clear ou tht esample data
     for (auto it = vec_sample_data.begin(); it != vec_sample_data.end(); ++it)
     {
         if (*it != nullptr)
@@ -248,6 +269,7 @@ SoundManager::~SoundManager()
 
     vec_sample_data.clear();
 
+    // Clear audio streams
     for (auto it = vec_streams.begin(); it != vec_streams.end(); ++it)
     {
         if (*it != nullptr)
@@ -256,8 +278,10 @@ SoundManager::~SoundManager()
         }
     }
 
+    vec_streams.clear();
+
     // Destroy the mixer
-    al_destroy_mixer(mixer_combined);
     al_destroy_mixer(mixer_sound);
     al_destroy_mixer(mixer_music);
+    al_destroy_mixer(mixer_combined);
 }
