@@ -5,7 +5,7 @@ SoundManager::SoundManager() :
     init_success(false),
     current_burner_state(BurnerState::OFF),
     current_valve_state(ValveState::CLOSED),
-    music_state(false),
+    music_state(true),
     mixer_combined(nullptr),
     mixer_sound(nullptr),
     mixer_music(nullptr),
