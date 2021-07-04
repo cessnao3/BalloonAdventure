@@ -39,6 +39,10 @@ ALLEGRO_DISPLAY* create_display(
         static_cast<int>(state.get_screen_width() * scale_factor),
         static_cast<int>(state.get_screen_height() * scale_factor));
 
+    // Hide the mouse cursor
+    al_hide_mouse_cursor(display);
+
+    // Get the new screen width / height
     const int new_screen_w = al_get_display_width(display);
     const int new_screen_h = al_get_display_height(display);
 
