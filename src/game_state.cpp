@@ -97,14 +97,18 @@ void GameState::draw()
     // Update the window offset if needed
     Vector2 diff_val = balloon.get_gondola().get_position() - draw_state.draw_offset;
 
-    const double display_width = al_get_display_width(draw_state.display);
-    const double display_height = al_get_display_height(draw_state.display);
+    const double display_width = static_cast<double>(draw_state.screen_w);
+    const double display_height = static_cast<double>(draw_state.screen_h);
 
-    const double lim_x_right = 0.8 * display_width;
-    const double lim_x_left = 0.2 * display_width;
+    // Define the limit values
+    const double lim_percent_x = 0.2;
+    const double lim_percent_y = 0.4;
 
-    const double lim_y_top = 0.4 * display_height;
-    const double lim_y_bot = 0.8 * display_height;
+    const double lim_x_right = (1.0 - lim_percent_x) * display_width;
+    const double lim_x_left = lim_percent_x * display_width;
+
+    const double lim_y_top = lim_percent_y * display_height;
+    const double lim_y_bot = (1.0 - lim_percent_y) * display_height;
 
     if (diff_val.x > lim_x_right)
     {

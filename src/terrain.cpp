@@ -54,7 +54,7 @@ void Terrain::draw(const DrawState* state)
         ALLEGRO_BITMAP* prev_target = al_get_target_bitmap();
         al_set_target_bitmap(bitmap);
 
-        //al_clear_to_color(al_map_rgba(0, 0, 0, 0));
+        al_clear_to_color(al_map_rgba(0, 0, 0, 0));
 
         bitmap_offset = state->draw_offset;
 
@@ -79,11 +79,16 @@ void Terrain::draw(const DrawState* state)
         // Iterate over each point to assign to the results
         for (int i = 2 * display_width; i >= -display_width; --i)
         {
-            // Define the inner-X location
-            terrain_points.add_point(
-                Vector2(
-                    i + bitmap_offset.x,
-                    elevation_at_x(i + state->draw_offset.x)) - bitmap_offset - draw_offset);
+            // Define the x location
+            const double x_loc = static_cast<double>(i + bitmap_offset.x);
+
+            // Define the vector point to add
+            Vector2 poly_point = Vector2(
+                x_loc,
+                elevation_at_x(x_loc)) - draw_offset - bitmap_offset;
+
+            // Add the point to the terrain items
+            terrain_points.add_point(poly_point);
         }
 
         // Add the final point
