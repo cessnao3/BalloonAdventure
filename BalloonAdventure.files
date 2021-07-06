@@ -30,6 +30,8 @@ src/balloon/weight.h
 src/game_state.cpp
 src/game_state.h
 src/main.cpp
+src/menu_state_flow.cpp
+src/menu_state_flow.h
 src/sound_manager.cpp
 src/sound_manager.h
 src/terrain.cpp

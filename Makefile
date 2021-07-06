@@ -3,7 +3,7 @@ CXX = g++
 
 # Define the initial flags and libriaries
 CXXFLAGS = $(file <BalloonAdventure.cxxflags)
-CXXLIBS = $(shell pkg-config --libs allegro-5 allegro_primitives-5 allegro_audio-5 allegro_acodec-5)
+CXXLIBS = $(shell pkg-config --libs allegro-5 allegro_primitives-5 allegro_audio-5 allegro_acodec-5 allegro_ttf-5)
 
 # Define the include directories and add to the flags
 INCLUDE_DIRS = $(file <BalloonAdventure.includes)
