@@ -67,8 +67,21 @@ public:
     bool get_dir_right() const;
 
 protected:
-    std::unordered_map<int, bool> status_map;
-    std::unordered_map<int, bool> rising_edge;
+    /**
+     * @brief The KeyStatus class provides common lookup parameters for key presses
+     */
+    struct KeyStatus
+    {
+        KeyStatus();
+
+        void set_both(bool val);
+
+        bool press_status;
+        bool rising_edge;
+    };
+
+protected:
+    std::unordered_map<int, KeyStatus> status_map;
 };
 
 #endif // INPUT_MANAGER_H

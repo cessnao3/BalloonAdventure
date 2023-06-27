@@ -47,9 +47,9 @@ void Balloon::set_position(const double x, const double y)
 
 void Balloon::draw(const DrawState* state)
 {
-    for (auto it = objects.begin(); it != objects.end(); ++it)
+    for (auto& obj : objects)
     {
-        (*it)->draw(state);
+        obj->draw(state);
     }
 }
 
@@ -96,25 +96,25 @@ void Balloon::pre_step(const StepState* state)
     rope_4.set_point_b(weight_2.get_position());
 
     // Run each object pre-state
-    for (auto it = objects.begin(); it != objects.end(); ++it)
+    for (auto& obj : objects)
     {
-        (*it)->pre_step(state);
+        obj->pre_step(state);
     }
 }
 
 void Balloon::step(const StepState* state)
 {
-    for (auto it = objects.begin(); it != objects.end(); ++it)
+    for (auto& obj : objects)
     {
-        (*it)->step(state);
+        obj->step(state);
     }
 }
 
 void Balloon::post_step(const StepState* state)
 {
-    for (auto it = objects.begin(); it != objects.end(); ++it)
+    for (auto& obj : objects)
     {
-        (*it)->post_step(state);
+        obj->post_step(state);
     }
 }
 

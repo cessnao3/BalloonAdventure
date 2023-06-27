@@ -42,9 +42,9 @@ bool GameState::init()
 void GameState::set_display(ALLEGRO_DISPLAY* display)
 {
     draw_state.display = display;
-    for (auto it = draw_objects.begin(); it != draw_objects.end(); ++it)
+    for (auto& it : draw_objects)
     {
-        (*it)->invalidate_draw(&draw_state);
+        it->invalidate_draw(&draw_state);
     }
     menu_state_flow.invalidate_draw(&draw_state);
 }
@@ -95,7 +95,7 @@ void GameState::draw()
     sound_manager.set_sound_gain(menu_state_flow.in_menu() ? 0.25 : 1.0);
 
     // Update the window offset if needed
-    Vector2 diff_val = balloon.get_gondola().get_position() - draw_state.draw_offset;
+    const Vector2 diff_val = balloon.get_gondola().get_position() - draw_state.draw_offset;
 
     const double display_width = static_cast<double>(draw_state.screen_w);
     const double display_height = static_cast<double>(draw_state.screen_h);
@@ -133,9 +133,9 @@ void GameState::draw()
     al_clear_to_color(background_color);
 
     // Run all drawable parameters
-    for (auto it = draw_objects.begin(); it != draw_objects.end(); ++it)
+    for (auto& it : draw_objects)
     {
-        (*it)->draw(&draw_state);
+        it->draw(&draw_state);
     }
 
     // Draw the menu if needed
@@ -230,19 +230,19 @@ void GameState::step(const double dt)
     for (size_t i = 0; i < num_steps; ++i)
     {
         // Run each pre, step, and post function
-        for (auto it = step_objects.begin(); it != step_objects.end(); ++it)
+        for (auto& it : step_objects)
         {
-            (*it)->pre_step(&world_state);
+            it->pre_step(&world_state);
         }
 
-        for (auto it = step_objects.begin(); it != step_objects.end(); ++it)
+        for (auto& it : step_objects)
         {
-            (*it)->step(&world_state);
+            it->step(&world_state);
         }
 
-        for (auto it = step_objects.begin(); it != step_objects.end(); ++it)
+        for (auto& it : step_objects)
         {
-            (*it)->post_step(&world_state);
+            it->post_step(&world_state);
         }
     }
 }

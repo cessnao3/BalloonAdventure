@@ -9,45 +9,35 @@ InputManager::InputManager()
 
 void InputManager::set_key_down(const int keycode)
 {
-    status_map.insert_or_assign(keycode, true);
-    rising_edge.insert_or_assign(keycode, true);
+    status_map[keycode].set_both(true);
 }
 
 void InputManager::set_key_up(const int keycode)
 {
-    status_map.insert_or_assign(keycode, false);
-    rising_edge.insert_or_assign(keycode, false);
+    status_map[keycode].set_both(false);
 }
 
 bool InputManager::get_key_status(const int keycode) const
 {
-    const auto value = status_map.find(keycode);
-    if (value == status_map.end())
+    const auto it = status_map.find(keycode);
+    if (it == status_map.end())
     {
         return false;
     }
     else
     {
-        return value->second;
+        return it->second.press_status;
     }
 }
 
 bool InputManager::get_key_rising_edge(const int keycode)
 {
-    const auto value = rising_edge.find(keycode);
-    if (value == rising_edge.end())
+    const bool val = status_map[keycode].rising_edge;
+    if (val)
     {
-        return false;
+        status_map[keycode].rising_edge = false;
     }
-    else
-    {
-        const bool val = value->second;
-        if (val)
-        {
-            rising_edge.insert_or_assign(keycode, false);
-        }
-        return val;
-    }
+    return val;
 }
 
 bool InputManager::get_dir_up() const
@@ -68,4 +58,17 @@ bool InputManager::get_dir_left() const
 bool InputManager::get_dir_right() const
 {
     return get_key_status(ALLEGRO_KEY_RIGHT) || get_key_status(ALLEGRO_KEY_D);
+}
+
+InputManager::KeyStatus::KeyStatus() :
+    press_status{ false },
+    rising_edge{ false }
+{
+    // Empty Constructor
+}
+
+void InputManager::KeyStatus::set_both(const bool val)
+{
+    press_status = val;
+    rising_edge = val;
 }

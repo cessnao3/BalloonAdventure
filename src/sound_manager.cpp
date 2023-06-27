@@ -241,11 +241,11 @@ void SoundManager::set_sound_gain(const double gain)
 SoundManager::~SoundManager()
 {
     // Detach and destory all sample instances
-    for (auto it = vec_sample_instances.begin(); it != vec_sample_instances.end(); ++it)
+    for (auto& it : vec_sample_instances)
     {
-        if (*it != nullptr)
+        if (it != nullptr)
         {
-            al_destroy_sample_instance(*it);
+            al_destroy_sample_instance(it);
         }
     }
 
@@ -259,22 +259,22 @@ SoundManager::~SoundManager()
     sample_burner_stop = nullptr;
 
     // Clear ou tht esample data
-    for (auto it = vec_sample_data.begin(); it != vec_sample_data.end(); ++it)
+    for (auto& it : vec_sample_data)
     {
-        if (*it != nullptr)
+        if (it != nullptr)
         {
-            al_destroy_sample(*it);
+            al_destroy_sample(it);
         }
     }
 
     vec_sample_data.clear();
 
     // Clear audio streams
-    for (auto it = vec_streams.begin(); it != vec_streams.end(); ++it)
+    for (auto& it : vec_streams)
     {
-        if (*it != nullptr)
+        if (it != nullptr)
         {
-            al_destroy_audio_stream(*it);
+            al_destroy_audio_stream(it);
         }
     }
 
